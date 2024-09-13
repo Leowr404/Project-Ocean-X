@@ -28,7 +28,7 @@ public class PlayerController : MonoBehaviour
     }
     public void OnShoot(InputAction.CallbackContext context)
     {
-        
+      
     }
 
 
