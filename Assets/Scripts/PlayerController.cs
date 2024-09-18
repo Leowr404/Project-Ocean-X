@@ -11,6 +11,8 @@ public class PlayerController : MonoBehaviour
     public int Velocidade;
     Vector2 moveInput;
     private CharacterController characterController;
+    //==========Config Audio==========
+    private AudioSource Shoot_sound;
 
     //===========Config Tiro==========
     [Header("Config Tiro")]
@@ -34,6 +36,8 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         characterController = GetComponent<CharacterController>();
+        Shoot_sound = AudioManager.instancia.GetComponent<AudioSource>();
+
     }
 
     public void OnMove(InputAction.CallbackContext context)
@@ -76,5 +80,6 @@ public class PlayerController : MonoBehaviour
         GameObject projectile = Instantiate(projectilePrefab, shootPoint.position, shootPoint.rotation);
         Rigidbody rb = projectile.GetComponent<Rigidbody>();
         rb.AddForce(shootPoint.forward * _shootForce, ForceMode.Impulse);
+        Shoot_sound.PlayOneShot(AudioManager.instancia.Death, 0.8f);
     }
 }
