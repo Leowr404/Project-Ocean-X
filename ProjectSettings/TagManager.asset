@@ -6,11 +6,12 @@ TagManager:
   tags:
   - Bullet
   - Audio
+  - Enemy
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - UIWorldSpace
   - Water
   - UI
   - 
@@ -42,4 +43,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: UIWorldSpace
+    uniqueID: 154675773
     locked: 0
