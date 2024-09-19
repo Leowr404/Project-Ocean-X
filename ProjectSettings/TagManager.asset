@@ -8,6 +8,7 @@ TagManager:
   - Audio
   - Enemy
   - PlayerFire
+  - PowerUp
   layers:
   - Default
   - TransparentFX

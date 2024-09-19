@@ -4,6 +4,8 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using DG.Tweening;
+
 
 public class PlayerController : MonoBehaviour
 {
@@ -17,13 +19,10 @@ public class PlayerController : MonoBehaviour
     private CharacterController characterController;
     //==========Config Audio==========
     AudioManager audioManager;
-    private AudioSource Tiro;
-
     //===========Config Tiro==========
     [Header("Config Tiro")]
     public GameObject projectilePrefab;
     public Transform shootPoint;
-    private AudioClip Tiro_sound;
     [SerializeField] private float _shootForce = 20f;
     [SerializeField] private float _fireRate = 0.5f;
     [SerializeField] private float _nextFireTime = 0f;
@@ -42,6 +41,7 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        StartCoroutine(Fadeout());
         currentHealth = maxHealth;
         sliderBar.maxValue = maxHealth;
         sliderBar.value = currentHealth;
@@ -106,11 +106,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void FadeIn()
-    {
-        UiBar.alpha = 1.0f;
-    }
-
     IEnumerator Fade()
     {
         if (UiBar.alpha >= 1)
@@ -140,6 +135,14 @@ public class PlayerController : MonoBehaviour
             yield return new WaitForSeconds(5f);
             Debug.Log("Power Up Off");
             BulletDmg.PowerUp = false; 
+    }
+
+    public IEnumerator Fadeout()
+    {
+
+        UiBar.DOFade(1, 2);
+        yield return new WaitForSeconds(2f);
+        UiBar.DOFade(0, 2);
     }
 
 }
