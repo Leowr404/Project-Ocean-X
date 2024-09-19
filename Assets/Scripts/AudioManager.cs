@@ -8,6 +8,8 @@ using UnityEngine.SceneManagement;
 public class AudioManager : MonoBehaviour
 {
     public AudioMixer mixer;
+    [SerializeField] AudioSource musicsource;
+    [SerializeField] AudioSource SFXsource;
     [SerializeField] Slider SFXSlider;
     [SerializeField] Slider MusicSlider;
     public static AudioManager instancia;
@@ -16,23 +18,25 @@ public class AudioManager : MonoBehaviour
 
 
     [Header("Configuracoes de Sons")]
-    //public AudioClip bgmSound;
-    public AudioClip Audio_PowerUp;
-    public AudioClip Audio_Coletavel;
-    public AudioClip Audio_Morte;
-    public AudioClip Audio_Pause;
-    public AudioClip Audio_Cheat;
-    public AudioClip Shoot_sound;
-    public AudioClip Buy_Loja;
-    public AudioClip Equip;
-    public AudioClip Death;
+    public AudioClip Tiro_sound;
+    public AudioClip Coletavel;
     public AudioClip backgroundMusicMenu;
     public AudioClip backgroundMusicGameplay;
     private AudioSource backgroundMusicSource;
 
+    private void Awake()
+    {
+        instancia = this;
+    }
     void Start()
     {
-        SetupBackgroundMusic();
+        musicsource.clip = backgroundMusicMenu;
+        musicsource.Play();
+
+
+
+
+        //SetupBackgroundMusic();
         float savedSFXVolume = PlayerPrefs.GetFloat(SFXVolumeKey, 1.0f);
         float savedMusicVolume = PlayerPrefs.GetFloat(MusicVolumeKey, 1.0f);
 
@@ -47,11 +51,11 @@ public class AudioManager : MonoBehaviour
         }
 
         // Configurar os volumes iniciais
-        SetMusicSFX();
+        SetSFX();
         SetMusic();
     }
 
-    public void SetMusicSFX()
+    public void SetSFX()
     {
         if (mixer != null && SFXSlider != null)
         {
@@ -71,41 +75,18 @@ public class AudioManager : MonoBehaviour
             float volume = MusicSlider.value;
             mixer.SetFloat("Music", Mathf.Log10(volume) * 20);
             MusicSlider.value = volume;
-            backgroundMusicSource.volume = volume;
             PlayerPrefs.SetFloat(MusicVolumeKey, volume);
             PlayerPrefs.Save();
         }
 
     }
-    private void SetupBackgroundMusic()
+    
+    public void PlaySFX(AudioClip clip)
     {
-        // Se tiver um som de fundo configurado
-        if (backgroundMusicSource == null)
-        {
-            backgroundMusicSource = gameObject.AddComponent<AudioSource>();
-            backgroundMusicSource.loop = true;
-            backgroundMusicSource.playOnAwake = true;
-        }
-
-        // Determina a cena atual
-        Scene currentScene = SceneManager.GetActiveScene();
-
-        // Configura o AudioClip com base na cena
-        if (currentScene.name == "Menu" && backgroundMusicMenu != null)
-        {
-            backgroundMusicSource.clip = backgroundMusicMenu;
-        }
-        else if (currentScene.name == "Gameplay" && backgroundMusicGameplay != null)
-        {
-            backgroundMusicSource.clip = backgroundMusicGameplay;
-        }
-
-        // Configura o volume e o mixer
-        backgroundMusicSource.volume = PlayerPrefs.GetFloat(MusicVolumeKey, 1.0f);
-        backgroundMusicSource.outputAudioMixerGroup = mixer.FindMatchingGroups("Music")[0];
-
-        // Inicia a reprodução do som de fundo
-        backgroundMusicSource.Play();
+        SFXsource.PlayOneShot(clip);
+        
     }
+    
+   
 
 }

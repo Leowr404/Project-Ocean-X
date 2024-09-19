@@ -12,12 +12,14 @@ public class PlayerController : MonoBehaviour
     Vector2 moveInput;
     private CharacterController characterController;
     //==========Config Audio==========
-    private AudioSource Shoot_sound;
+    AudioManager audioManager;
+    private AudioSource Tiro;
 
     //===========Config Tiro==========
     [Header("Config Tiro")]
     public GameObject projectilePrefab;
     public Transform shootPoint;
+    private AudioClip Tiro_sound;
     [SerializeField] private float _shootForce = 20f;
     [SerializeField] private float _fireRate = 0.5f;
     [SerializeField] private float _nextFireTime = 0f;
@@ -36,7 +38,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         characterController = GetComponent<CharacterController>();
-        Shoot_sound = AudioManager.instancia.GetComponent<AudioSource>();
+        audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
 
     }
 
@@ -77,9 +79,10 @@ public class PlayerController : MonoBehaviour
     }
     private void Shoot()
     {
+        audioManager.PlaySFX(audioManager.Tiro_sound);
         GameObject projectile = Instantiate(projectilePrefab, shootPoint.position, shootPoint.rotation);
         Rigidbody rb = projectile.GetComponent<Rigidbody>();
         rb.AddForce(shootPoint.forward * _shootForce, ForceMode.Impulse);
-        Shoot_sound.PlayOneShot(AudioManager.instancia.Death, 0.8f);
+        
     }
 }
