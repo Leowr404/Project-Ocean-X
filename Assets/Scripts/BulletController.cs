@@ -18,19 +18,6 @@ public class BulletController : MonoBehaviour
         PowerUp = false;
     }
 
-    public IEnumerator PowerUps(Collider collider)
-    {
-        if (collider.gameObject.CompareTag("PowerUp"))
-        {
-            //Destroy(gameObject);
-            Debug.Log("Power Up On");
-            PowerUp = true;
-            yield return new WaitForSeconds(5f);
-            Debug.Log("Power Up Off");
-            PowerUp = false;
-        }
-    }
-
     // Update is called once per frame
     void Update()
     {

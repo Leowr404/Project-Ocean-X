@@ -18,7 +18,7 @@ public class ProjectScript : MonoBehaviour
     {
         if (collider.gameObject.CompareTag("Enemy"))
         {
-            Debug.Log("Acertou");
+            Debug.Log("Inimigo Atingido");
             Destroy(gameObject);
             
         }

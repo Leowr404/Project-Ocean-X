@@ -98,6 +98,7 @@ public class PlayerController : MonoBehaviour
 
     public void TakeDamage(int amount)
     {
+        StartCoroutine(Fadeout());
         currentHealth -= amount;
         sliderBar.value = currentHealth;
         if (currentHealth < 0)
@@ -105,31 +106,21 @@ public class PlayerController : MonoBehaviour
             Destroy(gameObject);
         }
     }
-
-    IEnumerator Fade()
+    public void OnCollisionEnter(Collision collision)
     {
-        if (UiBar.alpha >= 1)
+        if (collision.gameObject.CompareTag("Enemy"))
         {
-            UiBar.alpha += Time.deltaTime;
+            Debug.Log("Tomou Dano");
+            TakeDamage(1);
         }
-
-        yield return new WaitForSeconds(5f);
-    }
-    public void OnTriggerEnter(Collider collider)
-    {
-        if (collider.gameObject.CompareTag("Enemy"))
-        {
-            Debug.Log("Hitou");
-            TakeDamage(4);
-        }
-        if (collider.gameObject.CompareTag("PowerUp"))
+        if (collision.gameObject.CompareTag("PowerUp"))
         {
             StartCoroutine(PowerUps());
         }
     }
     public IEnumerator PowerUps()
     {
-            //Destroy(gameObject);
+            
             Debug.Log("Power Up On");
             BulletDmg.PowerUp = true;
             yield return new WaitForSeconds(5f);
@@ -140,8 +131,8 @@ public class PlayerController : MonoBehaviour
     public IEnumerator Fadeout()
     {
 
-        UiBar.DOFade(1, 2);
-        yield return new WaitForSeconds(2f);
+        UiBar.DOFade(1, 1f);
+        yield return new WaitForSeconds(0.01f);
         UiBar.DOFade(0, 2);
     }
 

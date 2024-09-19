@@ -44,7 +44,6 @@ public class EnemyController : MonoBehaviour
     {
         if (collider.gameObject.CompareTag("PlayerFire"))
         {
-            Debug.Log("Hitou");
             TakeDamage();
         }
     }
