@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] public int Velocidade;
     [SerializeField] public CanvasGroup UiBar;
     Vector2 moveInput;
+    [SerializeField] private GameObject player;
     private CharacterController characterController;
     //==========Config Audio==========
     AudioManager audioManager;
@@ -41,7 +42,7 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(Fadeout());
+        UiBar.DOFade(0,2f);
         currentHealth = maxHealth;
         sliderBar.maxValue = maxHealth;
         sliderBar.value = currentHealth;
@@ -103,19 +104,21 @@ public class PlayerController : MonoBehaviour
         sliderBar.value = currentHealth;
         if (currentHealth < 0)
         {
-            Destroy(gameObject);
+            player.SetActive(false);
         }
     }
-    public void OnCollisionEnter(Collision collision)
+    public void OnTriggerEnter(Collider collider)
     {
-        if (collision.gameObject.CompareTag("Enemy"))
+        if (collider.gameObject.CompareTag("Enemy"))
         {
             Debug.Log("Tomou Dano");
             TakeDamage(1);
         }
-        if (collision.gameObject.CompareTag("PowerUp"))
+        if (collider.gameObject.CompareTag("PowerUp"))
         {
+            Destroy(collider.gameObject);
             StartCoroutine(PowerUps());
+            
         }
     }
     public IEnumerator PowerUps()
@@ -132,8 +135,8 @@ public class PlayerController : MonoBehaviour
     {
 
         UiBar.DOFade(1, 1f);
-        yield return new WaitForSeconds(0.01f);
-        UiBar.DOFade(0, 2);
+        yield return new WaitForSeconds(1.0f);
+        UiBar.DOFade(0, 2f);
     }
 
 }
