@@ -13,4 +13,14 @@ public class ProjectScript : MonoBehaviour
     {
         Destroy(gameObject, 5);
     }
+
+    public void OnTriggerEnter(Collider collider)
+    {
+        if (collider.gameObject.CompareTag("Enemy"))
+        {
+            Debug.Log("Acertou");
+            Destroy(gameObject);
+            
+        }
+    }
 }

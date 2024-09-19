@@ -38,6 +38,7 @@ public class PlayerController : MonoBehaviour
     public float zMax = 5f;
     //================================
     [SerializeField] private float _tiltAmount = 15f;
+    BulletController BulletDmg;
     // Start is called before the first frame update
     void Start()
     {
@@ -46,6 +47,7 @@ public class PlayerController : MonoBehaviour
         sliderBar.value = currentHealth;
         characterController = GetComponent<CharacterController>();
         audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
+        BulletDmg = BulletController.instancia;
 
     }
 
@@ -125,5 +127,19 @@ public class PlayerController : MonoBehaviour
             Debug.Log("Hitou");
             TakeDamage(4);
         }
+        if (collider.gameObject.CompareTag("PowerUp"))
+        {
+            StartCoroutine(PowerUps());
+        }
     }
+    public IEnumerator PowerUps()
+    {
+            //Destroy(gameObject);
+            Debug.Log("Power Up On");
+            BulletDmg.PowerUp = true;
+            yield return new WaitForSeconds(5f);
+            Debug.Log("Power Up Off");
+            BulletDmg.PowerUp = false; 
+    }
+
 }
