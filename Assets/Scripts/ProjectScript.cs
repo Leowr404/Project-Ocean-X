@@ -11,7 +11,7 @@ public class ProjectScript : MonoBehaviour
     }
     void DestroyGameObject()
     {
-        Destroy(gameObject, 5);
+        Destroy(gameObject, 2);
     }
 
     public void OnTriggerEnter(Collider collider)

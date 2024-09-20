@@ -3133,7 +3133,7 @@ MonoBehaviour:
     type: 3}
   shootPoint: {fileID: 2117557619}
   _shootForce: 100
-  _fireRate: 0.1
+  _fireRate: 0.3
   _nextFireTime: 0
   _isShooting: 0
   xMin: -8
@@ -4552,6 +4552,11 @@ PrefabInstance:
       propertyPath: SFXSlider
       value: 
       objectReference: {fileID: 141019472}
+    - target: {fileID: 7880560246314512311, guid: 5a67e2145c655c840ba34120319a5303,
+        type: 3}
+      propertyPath: Tiro_sound
+      value: 
+      objectReference: {fileID: 8300000, guid: 66d31e3c71de6b8498e5bc98400b0af1, type: 3}
     - target: {fileID: 7880560246314512311, guid: 5a67e2145c655c840ba34120319a5303,
         type: 3}
       propertyPath: MusicSlider

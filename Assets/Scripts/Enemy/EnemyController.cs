@@ -26,7 +26,7 @@ public class EnemyController : MonoBehaviour
     {
         if (BulletDmg.PowerUp == true)
         {
-            currentHealth -= BulletDmg.damage *= BulletDmg.damageMulti;
+            currentHealth -= BulletDmg.damage *+ BulletDmg.damageMulti;
             if (currentHealth <= 0)
             {
                 Destroy(gameObject);
