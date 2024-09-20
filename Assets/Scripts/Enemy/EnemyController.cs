@@ -1,3 +1,4 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -8,8 +9,10 @@ public class EnemyController : MonoBehaviour
     [SerializeField] public int maxHealth = 10;
     [SerializeField] public int currentHealth;
     BulletController BulletDmg;
+    private CinemachineImpulseSource impulseSource;
     void Start()
     {
+        impulseSource = GetComponent<CinemachineImpulseSource>();
         BulletDmg = BulletController.instancia;
         currentHealth = maxHealth;
     }
@@ -44,6 +47,7 @@ public class EnemyController : MonoBehaviour
     {
         if (collider.gameObject.CompareTag("PlayerFire"))
         {
+            CinemachineManager.instancia.CameraShake(impulseSource);
             TakeDamage();
         }
     }
