@@ -18,6 +18,10 @@ public class PlayerController : MonoBehaviour
     Vector2 moveInput;
     [SerializeField] private GameObject player;
     private CharacterController characterController;
+    MeshRenderer meshRenderer;
+    [SerializeField] private Material materialOriginal;
+    [SerializeField] private Material materialDano;
+    [SerializeField] private float tempoTexturaDano;
     //==========Config Audio==========
     AudioManager audioManager;
     //===========Config Tiro==========
@@ -37,11 +41,14 @@ public class PlayerController : MonoBehaviour
     public float zMin = -5f;
     public float zMax = 5f;
     //================================
+    //Material material;
     [SerializeField] private float _tiltAmount = 15f;
     BulletController BulletDmg;
     // Start is called before the first frame update
     void Start()
     {
+        meshRenderer = GetComponentInChildren<MeshRenderer>();
+        materialOriginal = meshRenderer.material;
         UiBar.DOFade(0,2f);
         currentHealth = maxHealth;
         sliderBar.maxValue = maxHealth;
@@ -99,9 +106,12 @@ public class PlayerController : MonoBehaviour
 
     public void TakeDamage(int amount)
     {
+        meshRenderer.material = materialDano;
+        StartCoroutine(ResetMaterial());
         StartCoroutine(Fadeout());
         currentHealth -= amount;
         sliderBar.value = currentHealth;
+       // material.DOColor(Color.white, 0.5f);
         if (currentHealth < 0)
         {
             player.SetActive(false);
@@ -129,6 +139,13 @@ public class PlayerController : MonoBehaviour
             yield return new WaitForSeconds(5f);
             Debug.Log("Power Up Off");
             BulletDmg.PowerUp = false; 
+    }
+    private IEnumerator ResetMaterial()
+    {
+        // Vai executar depois que o tempo de duração do dano passar
+        yield return new WaitForSeconds(tempoTexturaDano);
+        // Depois desse tempo aí de cima passar o material do inimigo vai voltar pro base   
+        meshRenderer.material = materialOriginal;
     }
 
     public IEnumerator Fadeout()
