@@ -49,6 +49,7 @@ public class PlayerController : MonoBehaviour
     {
         meshRenderer = GetComponentInChildren<MeshRenderer>();
         materialOriginal = meshRenderer.material;
+        UiBar.GetComponent<CanvasGroup>();
         UiBar.DOFade(0,2f);
         currentHealth = maxHealth;
         sliderBar.maxValue = maxHealth;
