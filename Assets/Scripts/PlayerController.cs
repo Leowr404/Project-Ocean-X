@@ -29,7 +29,7 @@ public class PlayerController : MonoBehaviour
     public GameObject projectilePrefab;
     public Transform shootPoint;
     [SerializeField] private float _shootForce = 20f;
-    [SerializeField] private float _fireRate = 0.5f;
+    [SerializeField] private float _fireRate;
     [SerializeField] private float _nextFireTime = 0f;
     [SerializeField] private bool _isShooting = false;
     //================================
@@ -47,6 +47,7 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        _fireRate = 0.3f;
         meshRenderer = GetComponentInChildren<MeshRenderer>();
         materialOriginal = meshRenderer.material;
         UiBar.GetComponent<CanvasGroup>();
@@ -131,21 +132,31 @@ public class PlayerController : MonoBehaviour
             StartCoroutine(PowerUps());
             
         }
+        if (collider.gameObject.CompareTag("Cure"))
+        {
+            Destroy(collider.gameObject);
+            currentHealth = maxHealth;
+            sliderBar.value = currentHealth;
+            StartCoroutine(Fadeout());
+
+        }
     }
     public IEnumerator PowerUps()
     {
             
             Debug.Log("Power Up On");
             BulletDmg.PowerUp = true;
+            _fireRate = 0.2f;
             yield return new WaitForSeconds(5f);
             Debug.Log("Power Up Off");
-            BulletDmg.PowerUp = false; 
+            BulletDmg.PowerUp = false;
+            _fireRate = 0.3f;
     }
     private IEnumerator ResetMaterial()
     {
         // Vai executar depois que o tempo de duração do dano passar
         yield return new WaitForSeconds(tempoTexturaDano);
-        // Depois desse tempo aí de cima passar o material do inimigo vai voltar pro base   
+        // Depois desse tempo aí de cima passar o material do Jogador vai voltar pro base   
         meshRenderer.material = materialOriginal;
     }
 

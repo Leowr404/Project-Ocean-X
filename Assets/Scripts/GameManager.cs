@@ -7,11 +7,13 @@ using UnityEngine.InputSystem;
 
 public class GameManager : MonoBehaviour
 {
+    AudioManager audioManager;
     public GameObject PauseMenuUI;
     public GameObject GameOverUI;
     private bool IsPaused = false;
     void Start()
     {
+        audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
         Time.timeScale = 1f;
         PauseMenuUI.SetActive(false);
         //GameOverUI.SetActive(false);
@@ -49,11 +51,13 @@ public class GameManager : MonoBehaviour
     public void CarregarMenu()
     {
         SceneManager.LoadScene("Menu");
+        audioManager.PlaySFX(audioManager.Select);
     }
 
     public void ResumeGame()
     {
         PauseMenuUI.SetActive(false);
+        audioManager.PlaySFX(audioManager.Select);
         Time.timeScale = 1f;
         IsPaused = false;
     }

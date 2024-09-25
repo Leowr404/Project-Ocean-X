@@ -9,6 +9,7 @@ public class MenuSounds : MonoBehaviour
     [SerializeField] Slider MusicSlider;
     public AudioMixer mixer;
     private const string MusicVolumeKeyM = "MusicVolume";
+    public AudioClip Select;
 
 
 
@@ -38,5 +39,9 @@ public class MenuSounds : MonoBehaviour
     void Update()
     {
         
+    }
+    public void Selected()
+    {
+      
     }
 }

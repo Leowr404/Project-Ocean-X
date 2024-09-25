@@ -20,6 +20,7 @@ public class AudioManager : MonoBehaviour
     [Header("Configuracoes de Sons")]
     public AudioClip Tiro_sound;
     public AudioClip Coletavel;
+    public AudioClip Select;
     public AudioClip backgroundMusicMenu;
     public AudioClip backgroundMusicGameplay;
     private AudioSource backgroundMusicSource;
