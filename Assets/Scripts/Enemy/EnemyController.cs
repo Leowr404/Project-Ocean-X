@@ -15,8 +15,11 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private Material materialOriginal;
     [SerializeField] private Material materialDano;
     [SerializeField] private float tempoTexturaDano;
+    public int speed;
+    EnemySpawn enemySpawn;
     void Start()
     {
+        enemySpawn = EnemySpawn.instance;
         meshRenderer = GetComponentInChildren<MeshRenderer>();
         materialOriginal = meshRenderer.material;
         impulseSource = GetComponent<CinemachineImpulseSource>();
@@ -27,7 +30,7 @@ public class EnemyController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        transform.Translate(Vector3.forward * speed * Time.deltaTime);
     }
     public void TakeDamage()
     {
@@ -38,7 +41,9 @@ public class EnemyController : MonoBehaviour
             currentHealth -= BulletDmg.damage *+ BulletDmg.damageMulti;
             if (currentHealth <= 0)
             {
+                
                 Destroy(gameObject);
+                enemySpawn.AddPoints(10);
             }
         }
         if(BulletDmg.PowerUp == false)
@@ -46,7 +51,9 @@ public class EnemyController : MonoBehaviour
             currentHealth -= BulletDmg.damage;
             if (currentHealth <= 0)
             {
-            Destroy(gameObject);
+                
+                Destroy(gameObject);
+                enemySpawn.AddPoints(10);
             }
 
         }
@@ -66,6 +73,11 @@ public class EnemyController : MonoBehaviour
         {
             CinemachineManager.instancia.CameraShake(impulseSource);
             TakeDamage();
+        }
+        if (collider.gameObject.CompareTag("EnemyDestroy"))
+        {
+            Debug.Log("teste Enemydestroy");
+            Destroy(this.gameObject);
         }
     }
 }

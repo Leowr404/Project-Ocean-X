@@ -720,6 +720,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MusicSlider: {fileID: 1441093117}
   mixer: {fileID: 24100000, guid: 851bf5259f36e7b41b87a51aae6d4be7, type: 2}
+  Select: {fileID: 0}
 --- !u!82 &481684229
 AudioSource:
   m_ObjectHideFlags: 0
@@ -2639,7 +2640,7 @@ PrefabInstance:
     - target: {fileID: 447170148806878169, guid: 9c56f7eabfc771f43ab7cd178c4ecc8c,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0.000061035156
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 447170148806878169, guid: 9c56f7eabfc771f43ab7cd178c4ecc8c,
         type: 3}

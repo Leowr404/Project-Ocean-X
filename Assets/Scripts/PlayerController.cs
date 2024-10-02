@@ -114,7 +114,7 @@ public class PlayerController : MonoBehaviour
         currentHealth -= amount;
         sliderBar.value = currentHealth;
        // material.DOColor(Color.white, 0.5f);
-        if (currentHealth < 0)
+        if (currentHealth <= 0)
         {
             player.SetActive(false);
         }

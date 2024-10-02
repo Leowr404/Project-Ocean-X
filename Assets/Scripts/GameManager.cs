@@ -13,6 +13,8 @@ public class GameManager : MonoBehaviour
     private bool IsPaused = false;
     void Start()
     {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
         audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
         Time.timeScale = 1f;
         PauseMenuUI.SetActive(false);
@@ -31,12 +33,16 @@ public class GameManager : MonoBehaviour
             PauseMenuUI.SetActive(false);
             Time.timeScale = 1f;  
             IsPaused = false;
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
         }
         else
-        { 
+        {
             PauseMenuUI.SetActive(true);
             Time.timeScale = 0f;
             IsPaused = true;
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
         }
     }
     
@@ -60,6 +66,8 @@ public class GameManager : MonoBehaviour
         audioManager.PlaySFX(audioManager.Select);
         Time.timeScale = 1f;
         IsPaused = false;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
 }
