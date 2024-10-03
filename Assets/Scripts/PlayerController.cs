@@ -22,8 +22,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Material materialOriginal;
     [SerializeField] private Material materialDano;
     [SerializeField] private float tempoTexturaDano;
-    //==========Config Audio==========
+    //==========Config Manager/Controller==========
     AudioManager audioManager;
+    GameManager gameManager;
     //===========Config Tiro==========
     [Header("Config Tiro")]
     public GameObject projectilePrefab;
@@ -57,6 +58,7 @@ public class PlayerController : MonoBehaviour
         sliderBar.value = currentHealth;
         characterController = GetComponent<CharacterController>();
         audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
+        gameManager = GameManager.Instance;
         BulletDmg = BulletController.instancia;
 
     }
@@ -64,6 +66,13 @@ public class PlayerController : MonoBehaviour
     public void OnMove(InputAction.CallbackContext context)
     {
         moveInput = context.ReadValue<Vector2>();
+    }
+    public void OnMenu(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            gameManager.PauseGame();
+        }
     }
     public void OnShoot(InputAction.CallbackContext context)
     {
@@ -89,7 +98,6 @@ public class PlayerController : MonoBehaviour
         transform.position = clampedPosition;
         float tilt = moveInput.x * -_tiltAmount;
         transform.rotation = Quaternion.Euler(0, 0, tilt);
-        // Confi tiro abaixo
         if (_isShooting && Time.time >= _nextFireTime)
         {
             Shoot();
@@ -117,6 +125,8 @@ public class PlayerController : MonoBehaviour
         if (currentHealth <= 0)
         {
             player.SetActive(false);
+            gameManager.GameOver();
+
         }
     }
     public void OnTriggerEnter(Collider collider)
@@ -160,9 +170,7 @@ public class PlayerController : MonoBehaviour
     }
     private IEnumerator ResetMaterial()
     {
-        // Vai executar depois que o tempo de duração do dano passar
-        yield return new WaitForSeconds(tempoTexturaDano);
-        // Depois desse tempo aí de cima passar o material do Jogador vai voltar pro base   
+        yield return new WaitForSeconds(tempoTexturaDano); 
         meshRenderer.material = materialOriginal;
     }
 

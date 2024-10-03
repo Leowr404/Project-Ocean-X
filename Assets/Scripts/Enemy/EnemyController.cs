@@ -78,9 +78,8 @@ public class EnemyController : MonoBehaviour
 
     private IEnumerator ResetMaterial()
     {
-        // Vai executar depois que o tempo de duração do dano passar
-        yield return new WaitForSeconds(tempoTexturaDano);
-        // Depois desse tempo aí de cima passar o material do inimigo vai voltar pro base   
+        
+        yield return new WaitForSeconds(tempoTexturaDano);  
         meshRenderer.material = materialOriginal;
     }
 
