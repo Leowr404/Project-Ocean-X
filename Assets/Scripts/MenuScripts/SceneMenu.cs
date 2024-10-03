@@ -36,6 +36,13 @@ public class SceneMenu : MonoBehaviour
         SceneManager.LoadScene("Gameplay");
     }
 
+   public void ExitGame() 
+    {
+        Application.Quit();
+        Debug.Log("jogo fechado");
+
+    }
+
 
 
 }

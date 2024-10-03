@@ -46,7 +46,7 @@ public class EnemySpawn : MonoBehaviour
             }
             else if  (currentPoints > pointsToSpawnBoss && spawnBoss == true)
             {
-                // Spawn do boss
+                
                 Instantiate(boss, spawnPoints[0].position, Quaternion.identity);
                 SpawnerOn = false;
 

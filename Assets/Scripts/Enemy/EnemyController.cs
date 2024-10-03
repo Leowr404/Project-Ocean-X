@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
+
 public class EnemyController : MonoBehaviour
 {
     [SerializeField] public int maxHealth = 10;
@@ -17,8 +18,11 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private float tempoTexturaDano;
     public int speed;
     EnemySpawn enemySpawn;
+    public float enemyrange;
     void Start()
     {
+        enemyrange = Random.Range(1,6);
+        transform.DOMoveX(7, enemyrange).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.Linear);
         enemySpawn = EnemySpawn.instance;
         meshRenderer = GetComponentInChildren<MeshRenderer>();
         materialOriginal = meshRenderer.material;
