@@ -19,10 +19,16 @@ public class EnemyController : MonoBehaviour
     public int speed;
     EnemySpawn enemySpawn;
     public float enemyrange;
+    public GameObject projectilePrefab;
+    public Transform shootPoint;
+    [SerializeField] private float _shootForce = 120f;
+    public float cooldownTime = 2f; 
+    private float nextAttackTime;
     void Start()
     {
         enemyrange = Random.Range(1,6);
         transform.DOMoveX(7, enemyrange).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.Linear);
+        speed = Random.Range(-10, -30);
         enemySpawn = EnemySpawn.instance;
         meshRenderer = GetComponentInChildren<MeshRenderer>();
         materialOriginal = meshRenderer.material;
@@ -32,9 +38,16 @@ public class EnemyController : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         transform.Translate(Vector3.forward * speed * Time.deltaTime);
+        {
+            if (Time.time >= nextAttackTime)
+            {
+                Shoot();
+                nextAttackTime = Time.time + cooldownTime;
+            }
+        }
     }
     public void TakeDamage()
     {
@@ -45,7 +58,7 @@ public class EnemyController : MonoBehaviour
             currentHealth -= BulletDmg.damage *+ BulletDmg.damageMulti;
             if (currentHealth <= 0)
             {
-                
+                DOTween.Kill(this.gameObject);
                 Destroy(gameObject);
                 enemySpawn.AddPoints(10);
             }
@@ -55,7 +68,7 @@ public class EnemyController : MonoBehaviour
             currentHealth -= BulletDmg.damage;
             if (currentHealth <= 0)
             {
-                
+                DOTween.Kill(this.gameObject);
                 Destroy(gameObject);
                 enemySpawn.AddPoints(10);
             }
@@ -84,4 +97,14 @@ public class EnemyController : MonoBehaviour
             Destroy(this.gameObject);
         }
     }
+    private void Shoot()
+    {
+        GameObject projectile = Instantiate(projectilePrefab, shootPoint.position, shootPoint.rotation);
+        Rigidbody rb = projectile.GetComponent<Rigidbody>();
+        rb.AddForce(shootPoint.forward * _shootForce, ForceMode.Impulse);
+        nextAttackTime = Time.time + cooldownTime;
+
+    }
+
+    
 }

@@ -165,7 +165,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 4202237274244579530}
   m_Father: {fileID: 3013859062836740570}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &4722201495009405699
@@ -314,6 +315,12 @@ MonoBehaviour:
   materialDano: {fileID: 2100000, guid: d4131e89f5caf7740b72605ecbb7672b, type: 2}
   tempoTexturaDano: 0.4
   speed: -10
+  enemyrange: 0
+  projectilePrefab: {fileID: 6278887773979413307, guid: c47f49b7bc4c5d24b8d29072512ac85f,
+    type: 3}
+  shootPoint: {fileID: 4202237274244579530}
+  _shootForce: 40
+  cooldownTime: 4
 --- !u!114 &3792490235900842741
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -469,3 +476,34 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!1 &8314947409163012859
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4202237274244579530}
+  m_Layer: 0
+  m_Name: Shot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4202237274244579530
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8314947409163012859}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -1.06}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3647384855541184495}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}

@@ -126,6 +126,12 @@ public class PlayerController : MonoBehaviour
             Debug.Log("Tomou Dano");
             TakeDamage(1);
         }
+        if (collider.gameObject.CompareTag("EnemyFire"))
+        {
+            Debug.Log("Tomou Dano");
+            TakeDamage(1);
+            Destroy(collider.gameObject);
+        }
         if (collider.gameObject.CompareTag("PowerUp"))
         {
             Destroy(collider.gameObject);
