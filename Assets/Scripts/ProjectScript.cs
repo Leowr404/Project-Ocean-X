@@ -18,9 +18,16 @@ public class ProjectScript : MonoBehaviour
     {
         if (collider.gameObject.CompareTag("Enemy"))
         {    
-            Debug.Log("Inimigo Atingido");
+            
             Destroy(gameObject);
             
+        }
+        if (collider.gameObject.CompareTag("EnemyFire"))
+        {
+            
+            Destroy(collider.gameObject);
+            Destroy(gameObject);
+
         }
     }
 }

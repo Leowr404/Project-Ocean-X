@@ -24,6 +24,8 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private float _shootForce = 120f;
     public float cooldownTime = 2f; 
     private float nextAttackTime;
+    [SerializeField] private GameObject[] ItemDrop;
+    public int chancedrop;
     void Start()
     {
         enemyrange = Random.Range(1,6);
@@ -61,6 +63,11 @@ public class EnemyController : MonoBehaviour
                 DOTween.Kill(this.gameObject);
                 Destroy(gameObject);
                 enemySpawn.AddPoints(10);
+                Random.Range(0,100);
+                if(chancedrop <= 25)
+                {
+                    Debug.Log("ITEM DROPADO");
+                }
             }
         }
         if(BulletDmg.PowerUp == false)
@@ -71,6 +78,11 @@ public class EnemyController : MonoBehaviour
                 DOTween.Kill(this.gameObject);
                 Destroy(gameObject);
                 enemySpawn.AddPoints(10);
+                Random.Range(0, 100);
+                if (chancedrop <= 5)
+                {
+                    Debug.Log("ITEM DROPADO");
+                }
             }
 
         }
@@ -92,7 +104,6 @@ public class EnemyController : MonoBehaviour
         }
         if (collider.gameObject.CompareTag("EnemyDestroy"))
         {
-            Debug.Log("teste Enemydestroy");
             Destroy(this.gameObject);
         }
     }

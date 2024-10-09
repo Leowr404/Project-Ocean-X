@@ -73,6 +73,14 @@ MonoBehaviour:
   materialOriginal: {fileID: 2100000, guid: aafe107813f7c6946af9f5b13eb545d7, type: 2}
   materialDano: {fileID: 2100000, guid: d4131e89f5caf7740b72605ecbb7672b, type: 2}
   tempoTexturaDano: 0.03
+  speed: 0
+  enemyrange: 0
+  projectilePrefab: {fileID: 0}
+  shootPoint: {fileID: 0}
+  _shootForce: 120
+  cooldownTime: 2
+  ItemDrop: []
+  chancedrop: 6
 --- !u!114 &7709165276849289628
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -98,12 +98,16 @@ public class PlayerController : MonoBehaviour
         transform.position = clampedPosition;
         float tilt = moveInput.x * -_tiltAmount;
         transform.rotation = Quaternion.Euler(0, 0, tilt);
+
+    }
+    private void FixedUpdate()
+    {
         if (_isShooting && Time.time >= _nextFireTime)
         {
             Shoot();
             _nextFireTime = Time.time + _fireRate;
         }
-
+        
     }
     private void Shoot()
     {
