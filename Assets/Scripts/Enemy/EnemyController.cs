@@ -63,10 +63,11 @@ public class EnemyController : MonoBehaviour
                 DOTween.Kill(this.gameObject);
                 Destroy(gameObject);
                 enemySpawn.AddPoints(10);
-                Random.Range(0,100);
-                if(chancedrop <= 25)
+                if(Random.Range(0,100) <= chancedrop)
                 {
-                    Debug.Log("ITEM DROPADO");
+                    int randomIndex = Random.Range(0, ItemDrop.Length);
+                    Instantiate(ItemDrop[randomIndex], transform.position, transform.rotation);
+                    Debug.Log("FUNCIONOU????");
                 }
             }
         }
@@ -78,10 +79,11 @@ public class EnemyController : MonoBehaviour
                 DOTween.Kill(this.gameObject);
                 Destroy(gameObject);
                 enemySpawn.AddPoints(10);
-                Random.Range(0, 100);
-                if (chancedrop <= 5)
+                if (Random.Range(0, 100) <= chancedrop)
                 {
-                    Debug.Log("ITEM DROPADO");
+                    int randomIndex = Random.Range(0, ItemDrop.Length);
+                    Instantiate(ItemDrop[randomIndex], transform.position, transform.rotation);
+                    Debug.Log("FUNCIONOU????");
                 }
             }
 

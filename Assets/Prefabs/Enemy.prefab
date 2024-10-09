@@ -79,8 +79,10 @@ MonoBehaviour:
   shootPoint: {fileID: 0}
   _shootForce: 120
   cooldownTime: 2
-  ItemDrop: []
-  chancedrop: 6
+  ItemDrop:
+  - {fileID: 8803101675502809102, guid: 458bd13abc4a19b4385e9d214318abb4, type: 3}
+  - {fileID: 5353345635160642683, guid: 7e53599596e5aa94c9a8173c62d98285, type: 3}
+  chancedrop: 0
 --- !u!114 &7709165276849289628
 MonoBehaviour:
   m_ObjectHideFlags: 0
