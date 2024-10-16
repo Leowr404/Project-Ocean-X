@@ -10,11 +10,13 @@ using DG.Tweening;
 public class PlayerController : MonoBehaviour
 {
     [Header("Config Player")]
+    [SerializeField] public CanvasGroup DangerUi;
     [SerializeField] public Slider sliderBar;
     [SerializeField] public int maxHealth;
     [SerializeField] public int currentHealth;
     [SerializeField] public int Velocidade;
     [SerializeField] public CanvasGroup UiBar;
+    private bool isLoopActive = false;
     Vector2 moveInput;
     [SerializeField] private GameObject player;
     private CharacterController characterController;
@@ -48,6 +50,8 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        DangerUi.GetComponent<CanvasGroup>();
+        DangerUi.DOFade(0, 0.1f);
         _fireRate = 0.3f;
         meshRenderer = GetComponentInChildren<MeshRenderer>();
         materialOriginal = meshRenderer.material;
@@ -98,6 +102,7 @@ public class PlayerController : MonoBehaviour
         transform.position = clampedPosition;
         float tilt = moveInput.x * -_tiltAmount;
         transform.rotation = Quaternion.Euler(0, 0, tilt);
+        
 
     }
     private void FixedUpdate()
@@ -122,10 +127,14 @@ public class PlayerController : MonoBehaviour
     {
         meshRenderer.material = materialDano;
         StartCoroutine(ResetMaterial());
-        StartCoroutine(Fadeout());
         currentHealth -= amount;
         sliderBar.value = currentHealth;
-       // material.DOColor(Color.white, 0.5f);
+        // material.DOColor(Color.white, 0.5f);
+        UpdateHealthStatus();
+
+        ShowAndFadeLifeBar();
+
+
         if (currentHealth <= 0)
         {
             player.SetActive(false);
@@ -157,7 +166,8 @@ public class PlayerController : MonoBehaviour
             Destroy(collider.gameObject);
             currentHealth = maxHealth;
             sliderBar.value = currentHealth;
-            StartCoroutine(Fadeout());
+            UpdateHealthStatus();
+
 
         }
     }
@@ -178,12 +188,32 @@ public class PlayerController : MonoBehaviour
         meshRenderer.material = materialOriginal;
     }
 
-    public IEnumerator Fadeout()
+    private void UpdateHealthStatus()
     {
-
-        UiBar.DOFade(1, 1f);
-        yield return new WaitForSeconds(1.0f);
-        UiBar.DOFade(0, 2f);
+        if (currentHealth <= 2 && !isLoopActive)
+        {
+            DangerUi.DOFade(1, 0.2f).SetLoops(-1, LoopType.Yoyo);
+            UiBar.DOFade(1, 0.3f).SetLoops(-1, LoopType.Yoyo);
+            isLoopActive = true; 
+        }
+        else if (currentHealth > 2 && isLoopActive)
+        {
+            DOTween.Kill(DangerUi);
+            DOTween.Kill(UiBar);
+            DangerUi.DOFade(0, 0.1f); 
+            UiBar.DOFade(0, 1f);
+            isLoopActive = false; 
+        }
+    }
+        public void ShowAndFadeLifeBar()
+    {
+        // Faz a barra de vida aparecer (Fade para 1)
+        UiBar.DOFade(1, 1f)
+            .OnComplete(() =>
+            {
+                // Após 1 segundo, faz a barra de vida desaparecer (Fade para 0)
+                UiBar.DOFade(0, 2f);
+            });
     }
 
 }

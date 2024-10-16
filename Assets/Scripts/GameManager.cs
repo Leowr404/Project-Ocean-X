@@ -17,6 +17,8 @@ public class GameManager : MonoBehaviour
     private bool IsPaused = false;
     [SerializeField]private Volume _Globalvolume;
     private DepthOfField depthOfField;
+    private int Pontos;
+    public GameObject PlacarPontos;
 
     public void Awake()
     {
@@ -100,6 +102,11 @@ public class GameManager : MonoBehaviour
     public void ProfundidadeOFF()
     {
         depthOfField.active = false;
+    }
+
+    public void Mostrarpontos()
+    {
+        Pontos.ToString();
     }
 
 }

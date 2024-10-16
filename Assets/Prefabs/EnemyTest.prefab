@@ -326,7 +326,7 @@ MonoBehaviour:
   - {fileID: 5353345635160642683, guid: 7e53599596e5aa94c9a8173c62d98285, type: 3}
   - {fileID: 7589261885233976080, guid: ad0f0aa793531f24680e98ef10f88226, type: 3}
   - {fileID: 8803101675502809102, guid: 458bd13abc4a19b4385e9d214318abb4, type: 3}
-  chancedrop: 99
+  chancedrop: 25
 --- !u!114 &3792490235900842741
 MonoBehaviour:
   m_ObjectHideFlags: 0

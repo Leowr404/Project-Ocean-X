@@ -60,7 +60,6 @@ public class EnemyController : MonoBehaviour
             currentHealth -= BulletDmg.damage *+ BulletDmg.damageMulti;
             if (currentHealth <= 0)
             {
-                DOTween.Kill(this.gameObject);
                 Destroy(gameObject);
                 enemySpawn.AddPoints(10);
                 if(Random.Range(0,100) <= chancedrop)
@@ -69,6 +68,8 @@ public class EnemyController : MonoBehaviour
                     Instantiate(ItemDrop[randomIndex], transform.position, transform.rotation);
                     Debug.Log("FUNCIONOU????");
                 }
+                DOTween.Kill(this.gameObject);
+                DOTween.Kill(transform);
             }
         }
         if(BulletDmg.PowerUp == false)
@@ -76,7 +77,6 @@ public class EnemyController : MonoBehaviour
             currentHealth -= BulletDmg.damage;
             if (currentHealth <= 0)
             {
-                DOTween.Kill(this.gameObject);
                 Destroy(gameObject);
                 enemySpawn.AddPoints(10);
                 if (Random.Range(0, 100) <= chancedrop)
@@ -85,6 +85,9 @@ public class EnemyController : MonoBehaviour
                     Instantiate(ItemDrop[randomIndex], transform.position, transform.rotation);
                     Debug.Log("FUNCIONOU????");
                 }
+                DOTween.Kill(this.gameObject);
+                DOTween.Kill(transform);
+
             }
 
         }
@@ -107,6 +110,7 @@ public class EnemyController : MonoBehaviour
         if (collider.gameObject.CompareTag("EnemyDestroy"))
         {
             Destroy(this.gameObject);
+            DOTween.Kill(transform);
         }
     }
     private void Shoot()
