@@ -131,14 +131,15 @@ public class PlayerController : MonoBehaviour
         sliderBar.value = currentHealth;
         // material.DOColor(Color.white, 0.5f);
         UpdateHealthStatus();
-
-        ShowAndFadeLifeBar();
-
-
+        if(currentHealth >= 3)
+        {
+            ShowAndFadeLifeBar();
+        }
         if (currentHealth <= 0)
         {
             player.SetActive(false);
             gameManager.GameOver();
+            audioManager.StopLoopingSFX();
 
         }
     }
@@ -194,7 +195,8 @@ public class PlayerController : MonoBehaviour
         {
             DangerUi.DOFade(1, 0.2f).SetLoops(-1, LoopType.Yoyo);
             UiBar.DOFade(1, 0.3f).SetLoops(-1, LoopType.Yoyo);
-            isLoopActive = true; 
+            isLoopActive = true;
+            audioManager.PlaySFX(audioManager.Danger, true);
         }
         else if (currentHealth > 2 && isLoopActive)
         {
@@ -202,7 +204,8 @@ public class PlayerController : MonoBehaviour
             DOTween.Kill(UiBar);
             DangerUi.DOFade(0, 0.1f); 
             UiBar.DOFade(0, 1f);
-            isLoopActive = false; 
+            isLoopActive = false;
+            audioManager.StopLoopingSFX();
         }
     }
         public void ShowAndFadeLifeBar()

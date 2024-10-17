@@ -1879,6 +1879,12 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 734503462}
   m_CullTransparentMesh: 1
+--- !u!82 &748346603 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 7392868711786403283, guid: 5a67e2145c655c840ba34120319a5303,
+    type: 3}
+  m_PrefabInstance: {fileID: 2825565559367560509}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
@@ -6191,6 +6197,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7880560246314512311, guid: 5a67e2145c655c840ba34120319a5303,
         type: 3}
+      propertyPath: Danger
+      value: 
+      objectReference: {fileID: 8300000, guid: 8e0ba512ec7bf0840915c61f73b18166, type: 3}
+    - target: {fileID: 7880560246314512311, guid: 5a67e2145c655c840ba34120319a5303,
+        type: 3}
       propertyPath: Select
       value: 
       objectReference: {fileID: 8300000, guid: 88b485d8bf67c4047b3eeb194b378f78, type: 3}
@@ -6209,6 +6220,11 @@ PrefabInstance:
       propertyPath: MusicSlider
       value: 
       objectReference: {fileID: 1637501440}
+    - target: {fileID: 7880560246314512311, guid: 5a67e2145c655c840ba34120319a5303,
+        type: 3}
+      propertyPath: loopingSFXSource
+      value: 
+      objectReference: {fileID: 748346603}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

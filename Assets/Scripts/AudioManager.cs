@@ -8,6 +8,7 @@ using UnityEngine.SceneManagement;
 public class AudioManager : MonoBehaviour
 {
     public AudioMixer mixer;
+    [SerializeField] AudioSource loopingSFXSource;
     [SerializeField] AudioSource musicsource;
     [SerializeField] AudioSource SFXsource;
     [SerializeField] Slider SFXSlider;
@@ -21,6 +22,7 @@ public class AudioManager : MonoBehaviour
     public AudioClip Tiro_sound;
     public AudioClip Coletavel;
     public AudioClip Select;
+    public AudioClip Danger;
     public AudioClip backgroundMusicMenu;
     public AudioClip backgroundMusicGameplay;
     private AudioSource backgroundMusicSource;
@@ -82,12 +84,26 @@ public class AudioManager : MonoBehaviour
 
     }
     
-    public void PlaySFX(AudioClip clip)
+    public void PlaySFX(AudioClip clip, bool loop = false)
     {
-        SFXsource.PlayOneShot(clip);
-        
+        if (loop)
+        {
+            loopingSFXSource.clip = clip;      // Configura o clipe no looping source
+            loopingSFXSource.loop = true;      // Ativa o loop
+            loopingSFXSource.Play();           // Toca o som em loop
+        }
+        else
+        {
+            SFXsource.PlayOneShot(clip);       // Usa PlayOneShot para não interromper o som atual
+        }
+
     }
-    
-   
+    public void StopLoopingSFX()
+    {
+        loopingSFXSource.Stop();  
+        loopingSFXSource.loop = false;  
+    }
+
+
 
 }

@@ -66,7 +66,7 @@ public class EnemyController : MonoBehaviour
                 {
                     int randomIndex = Random.Range(0, ItemDrop.Length);
                     Instantiate(ItemDrop[randomIndex], transform.position, transform.rotation);
-                    Debug.Log("FUNCIONOU????");
+                    
                 }
                 DOTween.Kill(this.gameObject);
                 DOTween.Kill(transform);
@@ -83,7 +83,7 @@ public class EnemyController : MonoBehaviour
                 {
                     int randomIndex = Random.Range(0, ItemDrop.Length);
                     Instantiate(ItemDrop[randomIndex], transform.position, transform.rotation);
-                    Debug.Log("FUNCIONOU????");
+                    
                 }
                 DOTween.Kill(this.gameObject);
                 DOTween.Kill(transform);
