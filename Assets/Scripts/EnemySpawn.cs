@@ -8,7 +8,7 @@ public class EnemySpawn : MonoBehaviour
     public GameObject enemyType1;
     public GameObject enemyType2;
     public GameObject boss;
-    public float spawnRate = 2f;
+    public float spawnRate;
     public Transform[] spawnPoints;
     public int pointsToSpawnBoss = 100;
     public bool spawnBoss = false;
@@ -22,6 +22,7 @@ public class EnemySpawn : MonoBehaviour
     }
     private void Start()
     {
+        spawnRate = Random.Range(1f,2f);
         SpawnerOn = true;
     }
     void Update()

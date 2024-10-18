@@ -10,6 +10,11 @@ public class EnemyController : MonoBehaviour
 {
     [SerializeField] public int maxHealth = 10;
     [SerializeField] public int currentHealth;
+    [Header("Config Radius Gizmos")]
+    [SerializeField]private float detectionRadius = 40f;
+    private bool playerInRange = false;
+    public LayerMask playerLayer;
+    //
     BulletController BulletDmg;
     private CinemachineImpulseSource impulseSource;
     MeshRenderer meshRenderer;
@@ -22,12 +27,13 @@ public class EnemyController : MonoBehaviour
     public GameObject projectilePrefab;
     public Transform shootPoint;
     [SerializeField] private float _shootForce = 120f;
-    public float cooldownTime = 2f; 
-    private float nextAttackTime;
+    public float cooldownTime; 
+    [SerializeField] private float nextAttackTime;
     [SerializeField] private GameObject[] ItemDrop;
     public int chancedrop;
     void Start()
     {
+        cooldownTime = Random.Range(0.5f, 2f);
         enemyrange = Random.Range(1,6);
         transform.DOMoveX(7, enemyrange).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.Linear);
         speed = Random.Range(-10, -30);
@@ -42,14 +48,17 @@ public class EnemyController : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        transform.Translate(Vector3.forward * speed * Time.deltaTime);
+        Move();
+        DetectPlayer();
+        if (playerInRange && Time.time >= nextAttackTime)
         {
-            if (Time.time >= nextAttackTime)
-            {
-                Shoot();
-                nextAttackTime = Time.time + cooldownTime;
-            }
+            Shoot();
         }
+    }
+    void Move()
+    {
+     
+        transform.Translate(Vector3.forward * speed * Time.deltaTime);
     }
     public void TakeDamage()
     {
@@ -121,6 +130,15 @@ public class EnemyController : MonoBehaviour
         nextAttackTime = Time.time + cooldownTime;
 
     }
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, detectionRadius);
+    }
+    void DetectPlayer()
+    {
+        playerInRange = Physics.OverlapSphere(transform.position, detectionRadius, playerLayer).Length > 0;
+    }
 
-    
+
 }
