@@ -11,7 +11,7 @@ public class EnemyController : MonoBehaviour
     [SerializeField] public int maxHealth = 10;
     [SerializeField] public int currentHealth;
     [Header("Config Radius Gizmos")]
-    [SerializeField]private float detectionRadius = 40f;
+    [SerializeField]private float detectionRadius;
     private bool playerInRange = false;
     public LayerMask playerLayer;
     //
@@ -27,8 +27,8 @@ public class EnemyController : MonoBehaviour
     public GameObject projectilePrefab;
     public Transform shootPoint;
     [SerializeField] private float _shootForce = 120f;
-    public float cooldownTime; 
-    [SerializeField] private float nextAttackTime;
+    private float cooldownTime; 
+    private float nextAttackTime;
     [SerializeField] private GameObject[] ItemDrop;
     public int chancedrop;
     void Start()
