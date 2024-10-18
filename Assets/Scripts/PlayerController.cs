@@ -129,7 +129,6 @@ public class PlayerController : MonoBehaviour
         StartCoroutine(ResetMaterial());
         currentHealth -= amount;
         sliderBar.value = currentHealth;
-        // material.DOColor(Color.white, 0.5f);
         UpdateHealthStatus();
         if(currentHealth >= 3)
         {
@@ -147,20 +146,17 @@ public class PlayerController : MonoBehaviour
     {
         if (collider.gameObject.CompareTag("Enemy"))
         {
-            Debug.Log("Tomou Dano");
             TakeDamage(1);
         }
         if (collider.gameObject.CompareTag("EnemyFire"))
         {
-            Debug.Log("Tomou Dano");
             TakeDamage(1);
             Destroy(collider.gameObject);
         }
         if (collider.gameObject.CompareTag("PowerUp"))
         {
             Destroy(collider.gameObject);
-            StartCoroutine(PowerUps());
-            
+            StartCoroutine(PowerUps());  
         }
         if (collider.gameObject.CompareTag("Cure"))
         {
@@ -168,8 +164,6 @@ public class PlayerController : MonoBehaviour
             currentHealth = maxHealth;
             sliderBar.value = currentHealth;
             UpdateHealthStatus();
-
-
         }
     }
     public IEnumerator PowerUps()
