@@ -57,7 +57,6 @@ public class EnemyController : MonoBehaviour
     }
     void Move()
     {
-     
         transform.Translate(Vector3.forward * speed * Time.deltaTime);
     }
     public void TakeDamage()
