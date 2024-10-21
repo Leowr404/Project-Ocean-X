@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class EnemySpawn : MonoBehaviour
 {
@@ -13,6 +15,7 @@ public class EnemySpawn : MonoBehaviour
     public int pointsToSpawnBoss = 100;
     public bool spawnBoss = false;
     public bool SpawnerOn = true;
+    [SerializeField]private TextMeshProUGUI pontosTxt;
 
     private float timeSinceLastSpawn;
     public int currentPoints = 0;
@@ -22,6 +25,7 @@ public class EnemySpawn : MonoBehaviour
     }
     private void Start()
     {
+        pontosTxt.color = Color.green;
         spawnRate = Random.Range(1f,2f);
         SpawnerOn = true;
     }
@@ -54,7 +58,7 @@ public class EnemySpawn : MonoBehaviour
                 
             }
         }
-        
+        pontosTxt.text = currentPoints.ToString("00" + " Pontos");
     }
 
     public void AddPoints(int points)
