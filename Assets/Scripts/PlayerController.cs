@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using DG.Tweening;
+using TMPro;
 
 
 public class PlayerController : MonoBehaviour
@@ -24,6 +25,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Material materialOriginal;
     [SerializeField] private Material materialDano;
     [SerializeField] private float tempoTexturaDano;
+    [SerializeField] private TextMeshProUGUI ColletableTxt;
     //==========Config Manager/Controller==========
     AudioManager audioManager;
     GameManager gameManager;
@@ -50,6 +52,8 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        
+        ColletableTxt = GetComponentInChildren<TextMeshProUGUI>();
         DangerUi.GetComponent<CanvasGroup>();
         DangerUi.DOFade(0, 0.1f);
         _fireRate = 0.3f;
@@ -161,6 +165,7 @@ public class PlayerController : MonoBehaviour
         if (collider.gameObject.CompareTag("Cure"))
         {
             Destroy(collider.gameObject);
+            StartCoroutine(Cure());
             currentHealth = maxHealth;
             sliderBar.value = currentHealth;
             UpdateHealthStatus();
@@ -170,12 +175,22 @@ public class PlayerController : MonoBehaviour
     {
             
             Debug.Log("Power Up On");
+            ColletableTxt.text = "POWER+";
+            ColletableTxt.alpha = 1.0f;
+            DesaparecerTextoAposTempo(1f, 0.5f);
             BulletDmg.PowerUp = true;
             _fireRate = 0.2f;
             yield return new WaitForSeconds(5f);
             Debug.Log("Power Up Off");
             BulletDmg.PowerUp = false;
             _fireRate = 0.3f;
+    }
+    public IEnumerator Cure()
+    {
+        ColletableTxt.text = "HEALTH+";
+        ColletableTxt.alpha = 1.0f;
+        DesaparecerTextoAposTempo(1f, 0.5f);
+        yield break;
     }
     private IEnumerator ResetMaterial()
     {
@@ -203,7 +218,7 @@ public class PlayerController : MonoBehaviour
         }
     }
         public void ShowAndFadeLifeBar()
-    {
+        {
         // Faz a barra de vida aparecer (Fade para 1)
         UiBar.DOFade(1, 1f)
             .OnComplete(() =>
@@ -211,6 +226,10 @@ public class PlayerController : MonoBehaviour
                 // Após 1 segundo, faz a barra de vida desaparecer (Fade para 0)
                 UiBar.DOFade(0, 2f);
             });
+        }
+    void DesaparecerTextoAposTempo(float delay, float duracaoFade)
+    {
+        ColletableTxt.DOFade(0, duracaoFade).SetDelay(delay);
     }
 
 }

@@ -16,6 +16,7 @@ public class EnemySpawn : MonoBehaviour
     public bool spawnBoss = false;
     public bool SpawnerOn = true;
     [SerializeField]private TextMeshProUGUI pontosTxt;
+    [SerializeField] private TextMeshProUGUI pontosTxt2;
 
     private float timeSinceLastSpawn;
     public int currentPoints = 0;
@@ -58,7 +59,7 @@ public class EnemySpawn : MonoBehaviour
                 
             }
         }
-        pontosTxt.text = currentPoints.ToString("00" + " Pontos");
+        pontosTxt.text = currentPoints.ToString("00");
     }
 
     public void AddPoints(int points)
