@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
     public GameObject PauseMenuUI;
     public GameObject GameOverUI;
     public GameObject BackGround;
+    public GameObject WinUI;
     private bool IsPaused = false;
     [SerializeField]private Volume _Globalvolume;
     private DepthOfField depthOfField;
@@ -33,6 +34,7 @@ public class GameManager : MonoBehaviour
         PauseMenuUI.SetActive(false);
         GameOverUI.SetActive(false);
         BackGround.SetActive(false);
+        WinUI.SetActive(false);
     }
 
     // Update is called once per frame
@@ -67,6 +69,11 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene("Menu");
         audioManager.PlaySFX(audioManager.Select);
     }
+    public void NextLevel()
+    {
+        SceneManager.LoadScene("Gameplay2");
+        audioManager.PlaySFX(audioManager.Select);
+    }
     public void PlayAgaion()
     {
         SceneManager.LoadScene("Gameplay");
@@ -93,6 +100,14 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0f;
         
 
+    }
+    public void WinLevel()
+    {
+        BackGround.SetActive(true);
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+        WinUI.SetActive(true);
+        Time.timeScale = 0f;
     }
 
     public void ProfundidadeON()
