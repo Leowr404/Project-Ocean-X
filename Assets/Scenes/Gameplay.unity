@@ -9767,7 +9767,7 @@ MonoBehaviour:
   spawnRate: 2
   spawnPoints:
   - {fileID: 1674539589}
-  pointsToSpawnBoss: 100
+  pointsToSpawnBoss: 250
   spawnBoss: 0
   SpawnerOn: 0
   pontosTxt: {fileID: 1358966981}
