@@ -13272,12 +13272,22 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7880560246314512311, guid: 5a67e2145c655c840ba34120319a5303,
         type: 3}
+      propertyPath: Hit
+      value: 
+      objectReference: {fileID: 8300000, guid: bb1a44aa607aec242ae7df4a1c2cf2c6, type: 3}
+    - target: {fileID: 7880560246314512311, guid: 5a67e2145c655c840ba34120319a5303,
+        type: 3}
       propertyPath: Danger
       value: 
       objectReference: {fileID: 8300000, guid: 8e0ba512ec7bf0840915c61f73b18166, type: 3}
     - target: {fileID: 7880560246314512311, guid: 5a67e2145c655c840ba34120319a5303,
         type: 3}
       propertyPath: Select
+      value: 
+      objectReference: {fileID: 8300000, guid: 88b485d8bf67c4047b3eeb194b378f78, type: 3}
+    - target: {fileID: 7880560246314512311, guid: 5a67e2145c655c840ba34120319a5303,
+        type: 3}
+      propertyPath: Coletavel
       value: 
       objectReference: {fileID: 8300000, guid: 88b485d8bf67c4047b3eeb194b378f78, type: 3}
     - target: {fileID: 7880560246314512311, guid: 5a67e2145c655c840ba34120319a5303,

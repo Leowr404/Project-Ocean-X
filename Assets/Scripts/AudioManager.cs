@@ -22,6 +22,7 @@ public class AudioManager : MonoBehaviour
     public AudioClip Tiro_sound;
     public AudioClip Coletavel;
     public AudioClip Select;
+    public AudioClip Hit;
     public AudioClip Danger;
     public AudioClip backgroundMusicMenu;
     public AudioClip backgroundMusicGameplay;

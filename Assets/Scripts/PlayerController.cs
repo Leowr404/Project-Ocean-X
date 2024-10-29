@@ -203,6 +203,7 @@ public class PlayerController : MonoBehaviour
         if (collider.gameObject.CompareTag("Cure"))
         {
             Destroy(collider.gameObject);
+            ShowAndFadeLifeBar();
             StartCoroutine(Cure());
             currentHealth = maxHealth;
             sliderBar.value = currentHealth;
@@ -215,6 +216,7 @@ public class PlayerController : MonoBehaviour
             ColletableTxt.alpha = 1.0f;
             DesaparecerTextoAposTempo(1f, 0.5f);
             BulletDmg.PowerUp = true;
+            audioManager.PlaySFX(audioManager.Coletavel, false);
             _fireRate = 0.2f;
             yield return new WaitForSeconds(5f);
             BulletDmg.PowerUp = false;

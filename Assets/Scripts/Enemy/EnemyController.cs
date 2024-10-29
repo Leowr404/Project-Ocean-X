@@ -17,6 +17,7 @@ public class EnemyController : MonoBehaviour
     //
     BulletController BulletDmg;
     private CinemachineImpulseSource impulseSource;
+    AudioManager audioManager;
     MeshRenderer meshRenderer;
     [SerializeField] private Material materialOriginal;
     [SerializeField] private Material materialDano;
@@ -33,6 +34,7 @@ public class EnemyController : MonoBehaviour
     public int chancedrop;
     void Start()
     {
+        audioManager = AudioManager.instancia;
         cooldownTime = Random.Range(0.5f, 2f);
         enemyrange = Random.Range(1,6);
         transform.DOMoveX(7, enemyrange).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.Linear);
@@ -113,6 +115,7 @@ public class EnemyController : MonoBehaviour
         if (collider.gameObject.CompareTag("PlayerFire"))
         {
             CinemachineManager.instancia.CameraShake(impulseSource);
+            audioManager.PlaySFX(audioManager.Hit, false);
             TakeDamage();
         }
         if (collider.gameObject.CompareTag("EnemyDestroy"))
