@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.Rendering;
+using DG.Tweening;
+using System.Threading.Tasks;
 
 public class GameManager : MonoBehaviour
 {
@@ -19,14 +21,19 @@ public class GameManager : MonoBehaviour
     [SerializeField]private Volume _Globalvolume;
     private DepthOfField depthOfField;
     private int Pontos;
-    public GameObject PlacarPontos;
+    //public GameObject PlacarPontos;
+    //
+    [SerializeField] RectTransform PausePainel;
+    [SerializeField] float topPosY, middlePosY;
+    [SerializeField] float tweedurat;
 
     public void Awake()
     {
         Instance = this;
     }
-    void Start()
+    async void Start()
     {
+        await PauseOut();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
@@ -35,6 +42,7 @@ public class GameManager : MonoBehaviour
         GameOverUI.SetActive(false);
         BackGround.SetActive(false);
         WinUI.SetActive(false);
+        Debug.Log("Jogo Inicou Corretamente");
     }
 
     // Update is called once per frame
@@ -46,15 +54,11 @@ public class GameManager : MonoBehaviour
     {
         if (IsPaused)
         {
-            BackGround.SetActive(false);
-            PauseMenuUI.SetActive(false);
-            Time.timeScale = 1f;  
-            IsPaused = false;
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
+            ResumeGame();
         }
         else
         {
+            PauseInto();
             BackGround.SetActive(true);
             PauseMenuUI.SetActive(true);
             Time.timeScale = 0f;
@@ -80,8 +84,9 @@ public class GameManager : MonoBehaviour
         audioManager.PlaySFX(audioManager.Select);
     }
 
-    public void ResumeGame()
+    public async void ResumeGame()
     {
+        await PauseOut();
         BackGround.SetActive(false);
         PauseMenuUI.SetActive(false);
         audioManager.PlaySFX(audioManager.Select);
@@ -122,6 +127,16 @@ public class GameManager : MonoBehaviour
     public void Mostrarpontos()
     {
         Pontos.ToString();
+    }
+
+    public void PauseInto()
+    {
+        PausePainel.DOAnchorPosY(middlePosY, tweedurat).SetUpdate(true);
+    }
+
+    async Task PauseOut()
+    {
+      await PausePainel.DOAnchorPosY(topPosY, tweedurat).SetUpdate(true).AsyncWaitForCompletion();
     }
 
 }
