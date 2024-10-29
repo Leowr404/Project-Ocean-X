@@ -41,7 +41,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1450545272038570340}
   - component: {fileID: 829172113972440957}
-  - component: {fileID: 6934099941044611666}
   - component: {fileID: 2111310405211636403}
   - component: {fileID: 7709165276849289628}
   m_Layer: 0
@@ -90,36 +89,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 3.96, y: 5.108194, z: 11.940594}
   m_Center: {x: 0, y: 2.5178888, z: -1.2064981}
---- !u!114 &6934099941044611666
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3638340415985477952}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b3ecc4b719f907d45b1e13d40fc668c0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHealth: 226
-  currentHealth: 0
-  detectionRadius: 0
-  playerLayer:
-    serializedVersion: 2
-    m_Bits: 0
-  materialOriginal: {fileID: 2100000, guid: aafe107813f7c6946af9f5b13eb545d7, type: 2}
-  materialDano: {fileID: 2100000, guid: d4131e89f5caf7740b72605ecbb7672b, type: 2}
-  tempoTexturaDano: 0.03
-  speed: 0
-  enemyrange: 0
-  projectilePrefab: {fileID: 0}
-  shootPoint: {fileID: 0}
-  _shootForce: 120
-  ItemDrop:
-  - {fileID: 8803101675502809102, guid: 458bd13abc4a19b4385e9d214318abb4, type: 3}
-  - {fileID: 5353345635160642683, guid: 7e53599596e5aa94c9a8173c62d98285, type: 3}
-  chancedrop: 0
 --- !u!114 &2111310405211636403
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -144,7 +113,6 @@ MonoBehaviour:
   shootPoint: {fileID: 6496276130769313663}
   _shootForce: 80
   shootInterval: 1
-  impulseSource: {fileID: 0}
   materialOriginal: {fileID: 2100000, guid: 73d56c756b367174d8ecc858179f32ea, type: 2}
   materialDano: {fileID: 2100000, guid: d4131e89f5caf7740b72605ecbb7672b, type: 2}
   tempoTexturaDano: 0.1

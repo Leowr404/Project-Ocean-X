@@ -24,7 +24,7 @@ public class Boss : MonoBehaviour
     public Transform shootPoint;
     [SerializeField]private int _shootForce;
     public float shootInterval = 1f;          
-    public CinemachineImpulseSource impulseSource;
+    private CinemachineImpulseSource impulseSource;
     GameManager gameManager;
     BulletController BulletDmg;
     MeshRenderer meshRenderer;
@@ -34,11 +34,11 @@ public class Boss : MonoBehaviour
 
     void Start()
     {
+        impulseSource = GetComponent<CinemachineImpulseSource>();
         gameManager = GameManager.Instance;
         BulletDmg = BulletController.instancia;
         shootInterval = Random.Range(0.5f,1f);
         meshRenderer = GetComponentInChildren<MeshRenderer>();
-        impulseSource = GetComponent<CinemachineImpulseSource>();
         currentHealth = maxHealth;
         // Garante que o boss inicie olhando na direção do eixo -Z
         transform.rotation = Quaternion.LookRotation(Vector3.back);
@@ -65,7 +65,7 @@ public class Boss : MonoBehaviour
 
     void StartShooting()
     {
-        // Inicia o disparo repetido dos projéteis para frente (no eixo -Z)
+        // Inicia o disparo repetido dos projéteis para frente
         InvokeRepeating(nameof(Shoot), 0, shootInterval);
     }
 
@@ -85,7 +85,6 @@ public class Boss : MonoBehaviour
     }
     private IEnumerator ResetMaterial()
     {
-
         yield return new WaitForSeconds(tempoTexturaDano);
         meshRenderer.material = materialOriginal;
     }
