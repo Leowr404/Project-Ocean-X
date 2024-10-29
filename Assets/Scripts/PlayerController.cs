@@ -220,7 +220,7 @@ public class PlayerController : MonoBehaviour
         public void ShowAndFadeLifeBar()
         {
         // Faz a barra de vida aparecer (Fade para 1)
-        UiBar.DOFade(1, 1f)
+        UiBar.DOFade(1, 2f)
             .OnComplete(() =>
             {
                 // Após 1 segundo, faz a barra de vida desaparecer (Fade para 0)
