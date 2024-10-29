@@ -108,7 +108,7 @@ MonoBehaviour:
   sideMovementDistance: 5
   moveSpeed: 2
   sideSpeed: 1
-  bulletPrefab: {fileID: 6278887773979413307, guid: c47f49b7bc4c5d24b8d29072512ac85f,
+  bulletPrefab: {fileID: 6278887773979413307, guid: 3456db44f0942184c9908404afd6bbb1,
     type: 3}
   shootPoint: {fileID: 6496276130769313663}
   _shootForce: 80

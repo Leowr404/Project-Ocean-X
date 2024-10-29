@@ -38,6 +38,14 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float _nextFireTime = 0f;
     [SerializeField] private bool _isShooting = false;
     //================================
+    [Header("Config TiroShootgun")]
+    public GameObject projectilePrefabShotgun;
+    [SerializeField] private bool _isShootingG = false;
+    [SerializeField]private float cooldownTime = 0.5f; 
+    [SerializeField]private float lastShootTime = 0f;
+    [SerializeField] private float spreadAngle;
+    [SerializeField] private float numberOfProjectiles;
+    //===============================
 
     //======Limite De Cenario=========
     [Header("Config limite cenario")]
@@ -49,7 +57,7 @@ public class PlayerController : MonoBehaviour
     //Material material;
     [SerializeField] private float _tiltAmount = 15f;
     BulletController BulletDmg;
-    // Start is called before the first frame update
+    
     void Start()
     {
         
@@ -93,6 +101,18 @@ public class PlayerController : MonoBehaviour
             _isShooting = false;
         }
     }
+    public void OnShootGun(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            _isShootingG = true;
+            ShootGun();
+        }
+        else if (context.canceled)
+        {
+            _isShootingG = false;
+        }
+    }
 
 
     // Update is called once per frame
@@ -117,6 +137,7 @@ public class PlayerController : MonoBehaviour
             _nextFireTime = Time.time + _fireRate;
         }
         
+
     }
     private void Shoot()
     {
@@ -125,6 +146,23 @@ public class PlayerController : MonoBehaviour
         Rigidbody rb = projectile.GetComponent<Rigidbody>();
         rb.AddForce(shootPoint.forward * _shootForce, ForceMode.Impulse);
 
+    }
+    private void ShootGun()
+    {
+        if (Time.time - lastShootTime < cooldownTime)
+            return; 
+
+        lastShootTime = Time.time;
+        audioManager.PlaySFX(audioManager.Tiro_sound);
+        float initialAngle = -spreadAngle * (numberOfProjectiles - 1) / 2; // Ângulo inicial para centralizar o spread
+        for (int i = 0; i < numberOfProjectiles; i++)
+        {
+            // Calcula o ângulo para cada projétil
+            Quaternion rotation = Quaternion.Euler(0, initialAngle + spreadAngle * i, 0) * shootPoint.rotation;
+            GameObject projectile = Instantiate(projectilePrefabShotgun, shootPoint.position, rotation);
+            Rigidbody rb = projectile.GetComponent<Rigidbody>();
+            rb.AddForce(rotation * Vector3.forward * _shootForce, ForceMode.Impulse);
+        }
     }
 
     public void TakeDamage(int amount)
@@ -173,15 +211,12 @@ public class PlayerController : MonoBehaviour
     }
     public IEnumerator PowerUps()
     {
-            
-            Debug.Log("Power Up On");
             ColletableTxt.text = "POWER+";
             ColletableTxt.alpha = 1.0f;
             DesaparecerTextoAposTempo(1f, 0.5f);
             BulletDmg.PowerUp = true;
             _fireRate = 0.2f;
             yield return new WaitForSeconds(5f);
-            Debug.Log("Power Up Off");
             BulletDmg.PowerUp = false;
             _fireRate = 0.3f;
     }
