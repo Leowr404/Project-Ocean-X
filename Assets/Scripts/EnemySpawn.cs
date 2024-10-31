@@ -27,11 +27,11 @@ public class EnemySpawn : MonoBehaviour
     private void Start()
     {
         pontosTxt.color = Color.green;
-        spawnRate = Random.Range(1f,2f);
         SpawnerOn = true;
     }
     void Update()
     {
+        spawnRate = Random.Range(1f,1.5f);
         if(currentPoints >= pointsToSpawnBoss)
         {
             spawnBoss = true;

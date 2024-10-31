@@ -151,7 +151,6 @@ public class PlayerController : MonoBehaviour
     {
         if (Time.time - lastShootTime < cooldownTime)
             return; 
-
         lastShootTime = Time.time;
         audioManager.PlaySFX(audioManager.Tiro_sound);
         float initialAngle = -spreadAngle * (numberOfProjectiles - 1) / 2; // Ângulo inicial para centralizar o spread

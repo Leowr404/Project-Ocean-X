@@ -65,6 +65,7 @@ public class GameManager : MonoBehaviour
             IsPaused = true;
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
+            
         }
     }
 
@@ -81,6 +82,11 @@ public class GameManager : MonoBehaviour
     public void PlayAgaion()
     {
         SceneManager.LoadScene("Gameplay");
+        audioManager.PlaySFX(audioManager.Select);
+    }
+    public void PlayAgaion2()
+    {
+        SceneManager.LoadScene("Gameplay2");
         audioManager.PlaySFX(audioManager.Select);
     }
 
