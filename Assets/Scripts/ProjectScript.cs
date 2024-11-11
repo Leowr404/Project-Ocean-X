@@ -5,7 +5,8 @@ using UnityEngine;
 
 public class ProjectScript : MonoBehaviour
 {
-     void Start()
+    [SerializeField] private GameObject hitPrefab;
+    void Start()
     {  
         DestroyGameObject();
     }
@@ -17,9 +18,10 @@ public class ProjectScript : MonoBehaviour
     public void OnTriggerEnter(Collider collider)
     {
         if (collider.gameObject.CompareTag("Enemy"))
-        {    
-            
+        {
+            Instantiate(hitPrefab, transform.position, Quaternion.identity);
             Destroy(gameObject);
+            
             
         }
         if (collider.gameObject.CompareTag("EnemyFire"))
@@ -27,6 +29,7 @@ public class ProjectScript : MonoBehaviour
             
             Destroy(collider.gameObject);
             Destroy(gameObject);
+            
 
         }
     }

@@ -46,6 +46,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float spreadAngle;
     [SerializeField] private float numberOfProjectiles;
     //===============================
+    public GameObject hitPrefab;
 
     //======Limite De Cenario=========
     [Header("Config limite cenario")]
@@ -193,6 +194,7 @@ public class PlayerController : MonoBehaviour
         {
             TakeDamage(1);
             Destroy(collider.gameObject);
+            Instantiate(hitPrefab, transform.position, transform.rotation);
         }
         if (collider.gameObject.CompareTag("PowerUp"))
         {
