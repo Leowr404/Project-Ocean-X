@@ -860,6 +860,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 962185099}
     m_Modifications:
+    - target: {fileID: 106220441565897008, guid: 9c56f7eabfc771f43ab7cd178c4ecc8c,
+        type: 3}
+      propertyPath: m_text
+      value: V0.50
+      objectReference: {fileID: 0}
     - target: {fileID: 447170148806878169, guid: 9c56f7eabfc771f43ab7cd178c4ecc8c,
         type: 3}
       propertyPath: m_Pivot.x
@@ -10879,6 +10884,7 @@ MonoBehaviour:
   lastShootTime: 0
   spreadAngle: 3
   numberOfProjectiles: 8
+  hitPrefab: {fileID: 0}
   xMin: -8
   xMax: 8
   zMin: -6

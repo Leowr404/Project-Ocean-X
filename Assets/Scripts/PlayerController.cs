@@ -204,6 +204,7 @@ public class PlayerController : MonoBehaviour
         if (collider.gameObject.CompareTag("Cure"))
         {
             Destroy(collider.gameObject);
+            audioManager.PlaySFX(audioManager.Coletavel, false);
             ShowAndFadeLifeBar();
             StartCoroutine(Cure());
             currentHealth = maxHealth;
