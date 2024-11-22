@@ -43,6 +43,12 @@ public class SceneMenu : MonoBehaviour
 
     }
 
+    public void OnMouseOver()
+    {
+        Debug.Log("MOUSE SOBRE BOTAO");
+        
+    }
+
 
 
 }

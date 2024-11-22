@@ -1,0 +1,106 @@
+using DG.Tweening;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class MainMenu : MonoBehaviour
+{
+    public RectTransform[] buttons;  // Array com os botões
+    public RectTransform[] Logos;  // Array com os botões
+    public float startX = -500f;     // Posição inicial no eixo X (fora da tela)
+    //public float startY = 500f;     // Posição inicial no eixo X (fora da tela)
+    [Header("Config Buttons")]
+    public float animationDuration = 0.5f; // Duração da animação de cada botão
+    public float delayBetweenButtons = 0.1f; // Atraso entre cada botão
+    //
+    [Header("Config Logos")]
+    public float animationDurationlogo = 0.5f; // Duração da animação de cada botão
+    public float delayBetweenLogos = 0.1f; // Atraso entre cada botão
+    [Header("Config Effects")]
+    public CanvasGroup flashCanvasGroup;           // Imagem do flash
+    public GameObject particleEffect; // Partícula a ser iniciada
+    public AudioSource audioSource;   // Fonte do som
+    public AudioClip flashSound;      // Som que será tocado
+
+    void Start()
+    {
+        AnimateButtons();
+        AnimateLogos();
+    }
+
+    void AnimateButtons()
+    {
+        // Anima cada botão
+        for (int i = 0; i < buttons.Length; i++)
+        {
+            RectTransform button = buttons[i];
+            Vector3 originalPosition = button.anchoredPosition;
+
+            // Define a posição inicial
+            button.anchoredPosition = new Vector2(startX, originalPosition.y);
+
+            // Move para a posição final com atraso baseado no índice
+            button.DOAnchorPos(originalPosition, animationDuration)
+                  .SetDelay(i * delayBetweenButtons)
+                  .SetEase(Ease.OutBack); // Suaviza a entrada com rebote
+        }
+    }
+    void AnimateLogos()
+    {
+        int completedAnimations = 0;
+
+        for (int i = 0; i < Logos.Length; i++)
+        {
+            RectTransform logo = Logos[i];
+            Vector3 originalPosition = logo.anchoredPosition;
+
+            logo.anchoredPosition = new Vector2(startX, originalPosition.y);
+
+            logo.DOAnchorPos(originalPosition, animationDurationlogo)
+                .SetDelay(i * delayBetweenLogos)
+                .SetEase(Ease.OutBack)
+                .OnComplete(() =>
+                {
+                    completedAnimations++;
+                    if (completedAnimations == Logos.Length)
+                    {
+                        // Dispara os efeitos ao final da animação das logos
+                        TriggerEffects();
+                    }
+                });
+        }
+    }
+    public void TriggerEffects()
+    {
+        // Ativa o painel antes de iniciar o flash
+        particleEffect.SetActive(true);
+        flashCanvasGroup.gameObject.SetActive(true);
+
+        // Flash: aumenta e reduz a opacidade usando CanvasGroup
+        flashCanvasGroup.DOFade(1, 0.2f) // Aparece em 0.2 segundos
+                        .OnComplete(() =>
+                        {
+                            flashCanvasGroup.DOFade(0, 0.5f) // Desaparece suavemente
+                                            .OnComplete(() =>
+                                            {
+                                                // Desativa o painel após o fade-out
+                                                flashCanvasGroup.gameObject.SetActive(false);
+                                            });
+                        });
+
+        // Inicia a partícula
+       // if (particleEffect != null)
+         //   particleEffect.Play();
+
+        // Toca o som
+        if (audioSource != null && flashSound != null)
+            audioSource.PlayOneShot(flashSound);
+    }
+    public void ParticleOn()
+    {
+        if(particleEffect.activeSelf == false) particleEffect.SetActive(true);
+        else particleEffect.SetActive(false);
+    }
+    
+}

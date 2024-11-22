@@ -7,9 +7,11 @@ using UnityEngine.UI;
 public class MenuSounds : MonoBehaviour
 {
     [SerializeField] Slider MusicSlider;
+    [SerializeField] AudioSource audioSource;
     public AudioMixer mixer;
     private const string MusicVolumeKeyM = "MusicVolume";
     public AudioClip Select;
+    public AudioClip mouseEnter;
 
 
 
@@ -40,8 +42,10 @@ public class MenuSounds : MonoBehaviour
     {
         
     }
-    public void Selected()
+    public void Botao()
     {
-      
+        audioSource.PlayOneShot(Select);
     }
+    
+    
 }

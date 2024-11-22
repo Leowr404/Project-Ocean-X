@@ -27,6 +27,7 @@ public class AudioManager : MonoBehaviour
     public AudioClip backgroundMusicMenu;
     public AudioClip backgroundMusicGameplay;
     private AudioSource backgroundMusicSource;
+    public AudioClip MouseEnter;
 
     private void Awake()
     {

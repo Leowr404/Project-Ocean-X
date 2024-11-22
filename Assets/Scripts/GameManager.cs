@@ -95,7 +95,6 @@ public class GameManager : MonoBehaviour
         await PauseOut();
         BackGround.SetActive(false);
         PauseMenuUI.SetActive(false);
-        audioManager.PlaySFX(audioManager.Select);
         Time.timeScale = 1f;
         IsPaused = false;
         Cursor.lockState = CursorLockMode.Locked;
