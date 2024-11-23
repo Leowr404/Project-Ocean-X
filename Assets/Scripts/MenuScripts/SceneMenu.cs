@@ -1,16 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using DG.Tweening;
 
 public class SceneMenu : MonoBehaviour
 {
     public GameObject Options;
+    public CanvasGroup fadeCanvasGroup; // CanvasGroup usado para o fade
+    public float fadeDuration = 2f;     // Duração do fade
+    [SerializeField] AudioSource audioSource;
+    [SerializeField] AudioClip startGame;
 
     // Start is called before the first frame update
     void Start()
     {
+        fadeCanvasGroup.gameObject.SetActive(false);
         Time.timeScale = 1f;
         Options.SetActive(false);   
     }
@@ -33,7 +40,13 @@ public class SceneMenu : MonoBehaviour
 
     public void PlayGame()
     {
-        SceneManager.LoadScene("Gameplay");
+        fadeCanvasGroup.gameObject.SetActive(true);
+        audioSource.PlayOneShot(startGame);
+        fadeCanvasGroup.DOFade(1, fadeDuration)
+            .OnComplete(() =>
+            {
+                SceneManager.LoadScene("Gameplay");
+            });
     }
 
    public void ExitGame() 
@@ -48,6 +61,7 @@ public class SceneMenu : MonoBehaviour
         Debug.Log("MOUSE SOBRE BOTAO");
         
     }
+
 
 
 

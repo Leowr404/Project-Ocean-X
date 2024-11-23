@@ -2,12 +2,15 @@ using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour
 {
     public RectTransform[] buttons;  // Array com os botões
     public RectTransform[] Logos;  // Array com os botões
+    public RectTransform OptionMenu;
+    public Button buton;
     public float startX = -500f;     // Posição inicial no eixo X (fora da tela)
     //public float startY = 500f;     // Posição inicial no eixo X (fora da tela)
     [Header("Config Buttons")]
@@ -22,6 +25,16 @@ public class MainMenu : MonoBehaviour
     public GameObject particleEffect; // Partícula a ser iniciada
     public AudioSource audioSource;   // Fonte do som
     public AudioClip flashSound;      // Som que será tocado
+    [Header("Config Options Menu")]
+    public RectTransform optionsPanel;  // Painel de opções
+
+    [Header("Config Sounds")]
+    [SerializeField] Slider MusicSlider;
+    public AudioMixer mixer;
+    private const string MusicVolumeKeyM = "MusicVolume";
+    public AudioClip select;
+    public AudioClip close;
+    public AudioClip mouseEnter;
 
     void Start()
     {
@@ -97,10 +110,43 @@ public class MainMenu : MonoBehaviour
         if (audioSource != null && flashSound != null)
             audioSource.PlayOneShot(flashSound);
     }
+    public void OpenOptions()
+    {
+        // Ativa o painel e inicia a animação de escala
+        audioSource.PlayOneShot(select);
+        optionsPanel.gameObject.SetActive(true);
+        optionsPanel.localScale = Vector3.zero; // Garante que comece invisível
+        optionsPanel.DOScale(Vector3.one, animationDuration)
+                    .SetEase(Ease.OutBack); // Suaviza a entrada com um efeito rebote
+    }
+    public void CloseOptions()
+    {
+        // Inicia a animação de escala para 0 e desativa o painel ao final
+        audioSource.PlayOneShot(close);
+        optionsPanel.DOScale(Vector3.zero, animationDuration)
+                    .SetEase(Ease.InBack) // Suaviza a saída com efeito de recolhimento
+                    .OnComplete(() =>
+                    {
+                        optionsPanel.gameObject.SetActive(false);
+                    });
+    }
     public void ParticleOn()
     {
         if(particleEffect.activeSelf == false) particleEffect.SetActive(true);
         else particleEffect.SetActive(false);
     }
-    
+    public void SetMusic()
+    {
+        float volume = MusicSlider.value;
+        mixer.SetFloat("Music", Mathf.Log10(volume) * 20);
+        MusicSlider.value = volume;
+        PlayerPrefs.SetFloat(MusicVolumeKeyM, volume);
+        PlayerPrefs.Save();
+    }
+    public void Botao()
+    {
+        audioSource.PlayOneShot(mouseEnter);
+        
+    }
+
 }
