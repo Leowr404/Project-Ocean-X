@@ -8,6 +8,7 @@ using UnityEngine.Rendering.Universal;
 using UnityEngine.Rendering;
 using DG.Tweening;
 using System.Threading.Tasks;
+using Unity.VisualScripting;
 
 public class GameManager : MonoBehaviour
 {
@@ -142,6 +143,14 @@ public class GameManager : MonoBehaviour
     async Task PauseOut()
     {
       await PausePainel.DOAnchorPosY(topPosY, tweedurat).SetUpdate(true).AsyncWaitForCompletion();
+    }
+    public void SelectButton()
+    {
+        audioManager.PlaySFX(audioManager.MouseEnter, false);
+    }
+    public void ClicktButton()
+    {
+        audioManager.PlaySFX(audioManager.MouseClick, false);
     }
 
 }

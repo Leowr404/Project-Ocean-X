@@ -30,11 +30,14 @@ public class MenuSounds : MonoBehaviour
     }
     public void SetMusic()
     {
-       float volume = MusicSlider.value;
-       mixer.SetFloat("Music", Mathf.Log10(volume) * 20);
-       MusicSlider.value = volume;
-       PlayerPrefs.SetFloat(MusicVolumeKeyM, volume);
-       PlayerPrefs.Save();
+        if (mixer != null && MusicSlider != null)
+        {
+            float volume = MusicSlider.value;
+            mixer.SetFloat("Music", Mathf.Log10(volume) * 20);
+            MusicSlider.value = volume;
+            PlayerPrefs.SetFloat(MusicVolumeKeyM, volume);
+            PlayerPrefs.Save();
+        }
     }
 
     // Update is called once per frame
