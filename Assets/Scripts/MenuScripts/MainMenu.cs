@@ -72,7 +72,7 @@ public class MainMenu : MonoBehaviour
             // Move para a posição final com atraso baseado no índice
             button.DOAnchorPos(originalPosition, animationDuration)
                   .SetDelay(i * delayBetweenButtons)
-                  .SetEase(Ease.OutBack); // Suaviza a entrada com rebote
+                  .SetEase(Ease.OutBack);
         }
     }
     void AnimateLogos()
@@ -117,12 +117,6 @@ public class MainMenu : MonoBehaviour
                                                 flashCanvasGroup.gameObject.SetActive(false);
                                             });
                         });
-
-        // Inicia a partícula
-       // if (particleEffect != null)
-         //   particleEffect.Play();
-
-        // Toca o som
         if (audioSource != null && flashSound != null)
             audioSource.PlayOneShot(flashSound);
     }

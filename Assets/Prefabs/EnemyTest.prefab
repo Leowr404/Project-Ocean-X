@@ -316,14 +316,14 @@ MonoBehaviour:
   playerLayer:
     serializedVersion: 2
     m_Bits: 64
-  hitPrefab: {fileID: 3463157229188906966, guid: 47096eff328e11a418ace7db2d72aa97,
-    type: 3}
   materialOriginal: {fileID: 2100000, guid: aafe107813f7c6946af9f5b13eb545d7, type: 2}
   materialDano: {fileID: 2100000, guid: d4131e89f5caf7740b72605ecbb7672b, type: 2}
   tempoTexturaDano: 0.4
   speed: -10
   enemyrange: 0
   projectilePrefab: {fileID: 6278887773979413307, guid: c47f49b7bc4c5d24b8d29072512ac85f,
+    type: 3}
+  deathEffect: {fileID: 2433282508537954060, guid: 3ef3ae421f71c5c4e97fe12dc2fc6312,
     type: 3}
   shootPoint: {fileID: 4202237274244579530}
   _shootForce: 40

@@ -12,6 +12,7 @@ TagManager:
   - Cure
   - EnemyDestroy
   - EnemyFire
+  - Mina
   layers:
   - Default
   - TransparentFX

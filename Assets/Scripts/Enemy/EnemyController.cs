@@ -26,12 +26,15 @@ public class EnemyController : MonoBehaviour
     EnemySpawn enemySpawn;
     public float enemyrange;
     public GameObject projectilePrefab;
+    public GameObject deathEffect;
     public Transform shootPoint;
     [SerializeField] private float _shootForce = 120f;
     private float cooldownTime; 
     private float nextAttackTime;
     [SerializeField] private GameObject[] ItemDrop;
     public int chancedrop;
+    
+    
     void Start()
     {
         audioManager = AudioManager.instancia;
@@ -45,6 +48,7 @@ public class EnemyController : MonoBehaviour
         impulseSource = GetComponent<CinemachineImpulseSource>();
         BulletDmg = BulletController.instancia;
         currentHealth = maxHealth;
+        
     }
 
     // Update is called once per frame
@@ -70,6 +74,7 @@ public class EnemyController : MonoBehaviour
             currentHealth -= BulletDmg.damage *+ BulletDmg.damageMulti;
             if (currentHealth <= 0)
             {
+                Instantiate(deathEffect, transform.position, transform.rotation);
                 Destroy(gameObject);
                 enemySpawn.AddPoints(10);
                 if(Random.Range(0,100) <= chancedrop)
@@ -87,6 +92,7 @@ public class EnemyController : MonoBehaviour
             currentHealth -= BulletDmg.damage;
             if (currentHealth <= 0)
             {
+                Instantiate(deathEffect, transform.position, transform.rotation);
                 Destroy(gameObject);
                 enemySpawn.AddPoints(10);
                 if (Random.Range(0, 100) <= chancedrop)

@@ -196,6 +196,10 @@ public class PlayerController : MonoBehaviour
             Destroy(collider.gameObject);
             Instantiate(hitPrefab, transform.position, transform.rotation);
         }
+        if (collider.gameObject.CompareTag("Mina"))
+        {
+            TakeDamage(2);
+        }
         if (collider.gameObject.CompareTag("PowerUp"))
         {
             Destroy(collider.gameObject);
