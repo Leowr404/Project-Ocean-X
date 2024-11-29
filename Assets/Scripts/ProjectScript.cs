@@ -32,5 +32,13 @@ public class ProjectScript : MonoBehaviour
             
 
         }
+        if (collider.gameObject.CompareTag("Mina"))
+        {
+
+            Destroy(collider.gameObject);
+            Destroy(gameObject);
+
+
+        }
     }
 }

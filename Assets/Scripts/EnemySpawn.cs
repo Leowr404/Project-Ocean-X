@@ -31,7 +31,7 @@ public class EnemySpawn : MonoBehaviour
     }
     void Update()
     {
-        spawnRate = Random.Range(1f,1.5f);
+        spawnRate = Random.Range(0.5f,1.5f);
         if(currentPoints >= pointsToSpawnBoss)
         {
             spawnBoss = true;
