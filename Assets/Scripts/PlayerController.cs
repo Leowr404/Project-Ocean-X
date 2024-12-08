@@ -33,6 +33,7 @@ public class PlayerController : MonoBehaviour
     [Header("Config Tiro")]
     public GameObject projectilePrefab;
     public Transform shootPoint;
+    public GameObject fireEffect;
     [SerializeField] private float _shootForce = 20f;
     [SerializeField] private float _fireRate;
     [SerializeField] private float _nextFireTime = 0f;
@@ -158,6 +159,7 @@ public class PlayerController : MonoBehaviour
         for (int i = 0; i < numberOfProjectiles; i++)
         {
             // Calcula o ângulo para cada projétil
+            Instantiate(fireEffect, shootPoint.transform);
             Quaternion rotation = Quaternion.Euler(0, initialAngle + spreadAngle * i, 0) * shootPoint.rotation;
             GameObject projectile = Instantiate(projectilePrefabShotgun, shootPoint.position, rotation);
             Rigidbody rb = projectile.GetComponent<Rigidbody>();
@@ -181,6 +183,8 @@ public class PlayerController : MonoBehaviour
             player.SetActive(false);
             gameManager.GameOver();
             audioManager.StopLoopingSFX();
+            DOTween.Kill(transform);
+            DOTween.Kill(this);
 
         }
     }
