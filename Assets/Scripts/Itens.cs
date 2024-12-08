@@ -44,5 +44,12 @@ public class Itens : MonoBehaviour
 
         }
     }
-    
-}
+    public void OnTriggerEnter(Collider collider)
+    {
+        if (collider.gameObject.CompareTag("EnemyDestroy"))
+        {
+            Destroy(this.gameObject);
+        }
+    }
+
+    }
