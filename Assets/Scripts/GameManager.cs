@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour
     [SerializeField]private Volume _Globalvolume;
     private DepthOfField depthOfField;
     private int Pontos;
+    [SerializeField]private CanvasGroup _stageName;
     //public GameObject PlacarPontos;
     //
     [SerializeField] RectTransform PausePainel;
@@ -35,6 +36,8 @@ public class GameManager : MonoBehaviour
     async void Start()
     {
         await PauseOut();
+        _stageName.DOFade(0, 0f);
+        ShowStage();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
@@ -119,6 +122,15 @@ public class GameManager : MonoBehaviour
         Cursor.visible = true;
         WinUI.SetActive(true);
         Time.timeScale = 0f;
+    }
+    public void ShowStage()
+    {
+        _stageName.DOFade(1f, 2f)
+            .OnComplete(() =>
+            {
+                _stageName.DOFade(0f, 1f);
+                
+            });
     }
 
     public void ProfundidadeON()

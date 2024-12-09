@@ -11,6 +11,20 @@ public class Boss2 : MonoBehaviour
     [SerializeField] private int currentHealth;
     AudioManager audioManager;
 
+    [Header("Componentes Giratorios")]
+    //[SerializeField] private Transform rotatingObject;
+    public int rotationSpeed1;
+    public int rotationSpeed2;
+    public int rotationSpeed3;
+    public int rotationSpeed4;
+    public int rotationSpeedCruz;
+    [SerializeField] private Transform _cruz;
+    [SerializeField] private Transform _dente1;
+    [SerializeField] private Transform _dente2;
+    [SerializeField] private Transform _dente3;
+    [SerializeField] private Transform _dente4;
+
+
     [Header("Movimentação")]
     [SerializeField] private float targetX = 0f;
     [SerializeField] private float targetZ = -20f;
@@ -42,6 +56,7 @@ public class Boss2 : MonoBehaviour
     private bool hasStartedAdvancedPhase = false;
     private CinemachineImpulseSource impulseSource;
     private MeshRenderer meshRenderer;
+    public MeshRenderer meshRendererr;
     private BulletController bulletDmg;
     PlayerController playerController;
 
@@ -71,7 +86,7 @@ public class Boss2 : MonoBehaviour
 
     private IEnumerator StartBossBehavior()
     {
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(2f);
         StartShooting();
         StartSideMovement();
     }
@@ -96,7 +111,8 @@ public class Boss2 : MonoBehaviour
             hasStartedSpreadShot = true;
             CancelInvoke(nameof(SingleShot));
             InvokeRepeating(nameof(SpreadShot), 0, shootIntervalphase2);
-            InvokeRepeating(nameof(HomingShot), 5f, 3f);
+            InvokeRepeating(nameof(HomingShot), 0f, 2f);
+            rotationSpeedCruz = 500;
         }
 
         if (currentHealth <= maxHealth * 0.25f && !hasStartedAdvancedPhase)
@@ -104,8 +120,9 @@ public class Boss2 : MonoBehaviour
             hasStartedAdvancedPhase = true;
             CancelInvoke(nameof(SpreadShot));
             InvokeRepeating(nameof(SpiralShot), 0, shootIntervalphase3);
-            InvokeRepeating(nameof(HomingShot), 0f, 1f);
+            InvokeRepeating(nameof(HomingShot), 0f, 0.2f);
             StartCoroutine(TeleportBehavior());
+            rotationSpeedCruz = 1000;
         }
         if (currentHealth <= 0)
         {
@@ -170,6 +187,10 @@ public class Boss2 : MonoBehaviour
             transform.position = randomPosition;
         }
     }
+    public void Rotation()
+    {
+        
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -184,6 +205,7 @@ public class Boss2 : MonoBehaviour
     private void TakeDamage()
     {
         meshRenderer.material = materialDano;
+        meshRendererr.material = materialDano;
         StartCoroutine(ResetMaterial());
         currentHealth -= bulletDmg.PowerUp ? bulletDmg.damage * bulletDmg.damageMulti : bulletDmg.damage;
         UpdatePhase();
@@ -194,6 +216,7 @@ public class Boss2 : MonoBehaviour
     {
         yield return new WaitForSeconds(tempoTexturaDano);
         meshRenderer.material = materialOriginal;
+        meshRendererr.material = materialOriginal;
     }
     private IEnumerator ExplodeAndPlaySound()
     {
@@ -226,5 +249,13 @@ public class Boss2 : MonoBehaviour
         DOTween.Kill(transform);
         Destroy(gameObject);
         GameManager.Instance.WinLevel();
+    }
+    public void LateUpdate()
+    {
+        _dente1.Rotate(Vector3.up * rotationSpeed1 * Time.deltaTime);
+        _dente2.Rotate(Vector3.up * rotationSpeed2 * Time.deltaTime);
+        _dente3.Rotate(Vector3.up * rotationSpeed3 * Time.deltaTime);
+        _dente4.Rotate(Vector3.up * rotationSpeed4 * Time.deltaTime);
+        _cruz.Rotate(Vector3.forward * rotationSpeedCruz * Time.deltaTime);
     }
 }
