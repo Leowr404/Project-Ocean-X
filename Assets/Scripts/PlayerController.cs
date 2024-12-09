@@ -222,6 +222,7 @@ public class PlayerController : MonoBehaviour
     }
     public IEnumerator PowerUps()
     {
+            BulletDmg.damage++;
             ColletableTxt.text = "POWER+";
             ColletableTxt.alpha = 1.0f;
             DesaparecerTextoAposTempo(1f, 0.5f);

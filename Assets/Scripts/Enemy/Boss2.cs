@@ -1,5 +1,6 @@
 using Cinemachine;
 using DG.Tweening;
+using DG.Tweening.Core.Easing;
 using System.Collections;
 using UnityEngine;
 
@@ -8,6 +9,7 @@ public class Boss2 : MonoBehaviour
     [Header("Configurações Gerais")]
     [SerializeField] private int maxHealth = 100;
     [SerializeField] private int currentHealth;
+    AudioManager audioManager;
 
     [Header("Movimentação")]
     [SerializeField] private float targetX = 0f;
@@ -22,10 +24,10 @@ public class Boss2 : MonoBehaviour
     [SerializeField] private GameObject homingBulletPrefab;
     [SerializeField] private Transform shootPoint;
     [SerializeField] private Transform shootPointMissel;
-    [SerializeField] private float shootInterval = 1f;
-    [SerializeField] private float shootIntervalphase1;
-    [SerializeField] private float shootIntervalphase2;
-    [SerializeField] private float shootIntervalphase3;
+    //[SerializeField] private float shootInterval = 1f;
+    [SerializeField] private float shootIntervalphase1 = 0.8f;
+    [SerializeField] private float shootIntervalphase2 = 1f;
+    [SerializeField] private float shootIntervalphase3 = 0.3f;
     [SerializeField] private int shootForce = 10;
     [SerializeField] private int spreadProjectiles = 8;
     [SerializeField] private int spiralProjectiles = 12;
@@ -34,24 +36,30 @@ public class Boss2 : MonoBehaviour
     [SerializeField] private Material materialOriginal;
     [SerializeField] private Material materialDano;
     [SerializeField] private float tempoTexturaDano = 0.2f;
+    [SerializeField] private GameObject destructionPrefab;
 
     private bool hasStartedSpreadShot = false;
     private bool hasStartedAdvancedPhase = false;
     private CinemachineImpulseSource impulseSource;
     private MeshRenderer meshRenderer;
     private BulletController bulletDmg;
+    PlayerController playerController;
+
 
     private void Start()
     {
-        shootIntervalphase1 = Random.Range(0.2f, 0.8f);
-        shootIntervalphase2 = Random.Range(0.5f, 1f);
-        shootIntervalphase3 = Random.Range(0.2f, 0.8f);
+        playerController = FindAnyObjectByType<PlayerController>();
+        audioManager = AudioManager.instancia;
+        //shootIntervalphase1 = Random.Range(0.2f, 0.8f);
+        // shootIntervalphase2 = Random.Range(0.5f, 1f);
+        // shootIntervalphase3 = Random.Range(0.2f, 0.8f);
         bulletDmg = BulletController.instancia;
         impulseSource = GetComponent<CinemachineImpulseSource>();
         meshRenderer = GetComponentInChildren<MeshRenderer>();
         currentHealth = maxHealth;
 
         MoveToInitialPosition();
+        
     }
 
     private void MoveToInitialPosition()
@@ -98,6 +106,15 @@ public class Boss2 : MonoBehaviour
             InvokeRepeating(nameof(SpiralShot), 0, shootIntervalphase3);
             InvokeRepeating(nameof(HomingShot), 0f, 1f);
             StartCoroutine(TeleportBehavior());
+        }
+        if (currentHealth <= 0)
+        {
+            playerController.currentHealth = 10;
+            hasStartedAdvancedPhase = true;
+            CancelInvoke(nameof(SpreadShot));
+            CancelInvoke(nameof(SpiralShot));
+            CancelInvoke(nameof(HomingShot));
+
         }
     }
 
@@ -159,6 +176,7 @@ public class Boss2 : MonoBehaviour
         if (other.gameObject.CompareTag("PlayerFire"))
         {
             CinemachineManager.instancia.CameraShake(impulseSource);
+            audioManager.PlaySFX(audioManager.Hit, false);
             TakeDamage();
         }
     }
@@ -169,13 +187,37 @@ public class Boss2 : MonoBehaviour
         StartCoroutine(ResetMaterial());
         currentHealth -= bulletDmg.PowerUp ? bulletDmg.damage * bulletDmg.damageMulti : bulletDmg.damage;
         UpdatePhase();
-        if (currentHealth <= 0) Die();
+        if (currentHealth <= 0) DefeatBoss();
     }
 
     private IEnumerator ResetMaterial()
     {
         yield return new WaitForSeconds(tempoTexturaDano);
         meshRenderer.material = materialOriginal;
+    }
+    private IEnumerator ExplodeAndPlaySound()
+    {
+        for (int i = 0; i < 4; i++)
+        {
+            Instantiate(destructionPrefab, transform.position, Quaternion.identity);
+            audioManager.PlaySFX(audioManager.BossDeath, false);
+            yield return new WaitForSeconds(0.5f);
+        }
+    }
+
+
+    public void DefeatBoss()
+    {
+
+        StartCoroutine(ExplodeAndPlaySound());
+        transform.DOMoveY(transform.position.y - 10f, 3f)
+            .SetEase(Ease.InCubic)
+            .OnComplete(() =>
+            {
+                DOTween.Kill(transform);
+                DOTween.Kill(this);
+                Die();
+            });
     }
 
     private void Die()

@@ -25,6 +25,7 @@ public class AudioManager : MonoBehaviour
     public AudioClip Hit;
     public AudioClip Danger;
     public AudioClip Explosion;
+    public AudioClip BossDeath;
     public AudioClip backgroundMusicMenu;
     public AudioClip backgroundMusicGameplay;
     private AudioSource backgroundMusicSource;

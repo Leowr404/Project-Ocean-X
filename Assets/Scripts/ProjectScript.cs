@@ -28,7 +28,7 @@ public class ProjectScript : MonoBehaviour
         {
             
             Destroy(collider.gameObject);
-            Destroy(gameObject);
+            
             
 
         }

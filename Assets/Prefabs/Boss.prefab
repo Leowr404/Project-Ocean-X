@@ -116,6 +116,8 @@ MonoBehaviour:
   materialOriginal: {fileID: 2100000, guid: 73d56c756b367174d8ecc858179f32ea, type: 2}
   materialDano: {fileID: 2100000, guid: d4131e89f5caf7740b72605ecbb7672b, type: 2}
   tempoTexturaDano: 0.1
+  destructionPrefab: {fileID: 2433282508537954060, guid: 946f52adcfc9ea1479427124a8f1a1e9,
+    type: 3}
 --- !u!114 &7709165276849289628
 MonoBehaviour:
   m_ObjectHideFlags: 0

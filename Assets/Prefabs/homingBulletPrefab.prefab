@@ -264,7 +264,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   playerObj: {fileID: 0}
-  speed: 15
+  speed: 10
   rotateSpeed: 800
 --- !u!1 &7830149596306677600
 GameObject:

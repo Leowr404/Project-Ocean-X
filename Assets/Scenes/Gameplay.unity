@@ -10848,7 +10848,7 @@ MonoBehaviour:
   spawnRate: 2
   spawnPoints:
   - {fileID: 1674539589}
-  pointsToSpawnBoss: 350
+  pointsToSpawnBoss: 400
   spawnBoss: 0
   SpawnerOn: 0
   pontosTxt: {fileID: 1358966981}
@@ -11279,7 +11279,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DangerUi: {fileID: 1377914507}
   sliderBar: {fileID: 1458396792}
-  maxHealth: 7
+  maxHealth: 10
   currentHealth: 0
   Velocidade: 10
   UiBar: {fileID: 1458396793}
@@ -14831,6 +14831,11 @@ PrefabInstance:
       propertyPath: Select
       value: 
       objectReference: {fileID: 8300000, guid: 88b485d8bf67c4047b3eeb194b378f78, type: 3}
+    - target: {fileID: 7880560246314512311, guid: 5a67e2145c655c840ba34120319a5303,
+        type: 3}
+      propertyPath: BossDeath
+      value: 
+      objectReference: {fileID: 8300000, guid: dc13b2bd87d41fe4cb8eaea4f070c7d3, type: 3}
     - target: {fileID: 7880560246314512311, guid: 5a67e2145c655c840ba34120319a5303,
         type: 3}
       propertyPath: Coletavel

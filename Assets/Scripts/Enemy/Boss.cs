@@ -25,6 +25,7 @@ public class Boss : MonoBehaviour
     [SerializeField]private int _shootForce;
     public float shootInterval = 1f;          
     private CinemachineImpulseSource impulseSource;
+    AudioManager audioManager;
     GameManager gameManager;
     BulletController BulletDmg;
     MeshRenderer meshRenderer;
@@ -32,8 +33,12 @@ public class Boss : MonoBehaviour
     [SerializeField] private Material materialDano;
     [SerializeField] private float tempoTexturaDano;
 
+    [Header("Efeitos de Derrota")]
+    [SerializeField] private GameObject destructionPrefab;     
+
     void Start()
     {
+        audioManager = AudioManager.instancia;
         impulseSource = GetComponent<CinemachineImpulseSource>();
         gameManager = GameManager.Instance;
         BulletDmg = BulletController.instancia;
@@ -97,10 +102,7 @@ public class Boss : MonoBehaviour
             currentHealth -= BulletDmg.damage * +BulletDmg.damageMulti;
             if (currentHealth <= 0)
             {
-                Destroy(gameObject);
-                DOTween.Kill(this.gameObject);
-                DOTween.Kill(transform);
-                gameManager.WinLevel();
+                DefeatBoss();
             }
         }
         if (BulletDmg.PowerUp == false)
@@ -108,13 +110,34 @@ public class Boss : MonoBehaviour
             currentHealth -= BulletDmg.damage;
             if (currentHealth <= 0)
             {
-                Destroy(gameObject);
-                DOTween.Kill(this.gameObject);
-                DOTween.Kill(transform);
-                gameManager.WinLevel();
+                DefeatBoss();
 
             }
 
         }
     }
+    private IEnumerator ExplodeAndPlaySound()
+    {
+        for (int i = 0; i < 4; i++) 
+        {
+            Instantiate(destructionPrefab, transform.position, Quaternion.identity);
+            audioManager.PlaySFX(audioManager.BossDeath, false);
+            yield return new WaitForSeconds(0.5f);
+        }
+    }
+
+
+        public void DefeatBoss()
+       {
+
+        StartCoroutine(ExplodeAndPlaySound());
+        transform.DOMoveY(transform.position.y - 10f, 3f)
+            .SetEase(Ease.InCubic)
+            .OnComplete(() =>
+            {
+                DOTween.Kill(transform);
+                DOTween.Kill(this);
+                gameManager.WinLevel(); 
+            });
+       }
 }
