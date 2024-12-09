@@ -36,7 +36,6 @@ public class GameManager : MonoBehaviour
     async void Start()
     {
         await PauseOut();
-        _stageName.DOFade(0, 0f);
         ShowStage();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;

@@ -111,7 +111,7 @@ public class Boss2 : MonoBehaviour
             hasStartedSpreadShot = true;
             CancelInvoke(nameof(SingleShot));
             InvokeRepeating(nameof(SpreadShot), 0, shootIntervalphase2);
-            InvokeRepeating(nameof(HomingShot), 0f, 2f);
+            InvokeRepeating(nameof(HomingShot), 0, 5f);
             rotationSpeedCruz = 500;
         }
 
@@ -120,8 +120,9 @@ public class Boss2 : MonoBehaviour
             hasStartedAdvancedPhase = true;
             CancelInvoke(nameof(SpreadShot));
             InvokeRepeating(nameof(SpiralShot), 0, shootIntervalphase3);
-            InvokeRepeating(nameof(HomingShot), 0f, 0.2f);
+            InvokeRepeating(nameof(HomingShot), 0, 0.3f);
             StartCoroutine(TeleportBehavior());
+            currentHealth = currentHealth + 500;
             rotationSpeedCruz = 1000;
         }
         if (currentHealth <= 0)

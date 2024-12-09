@@ -17,7 +17,7 @@ public class ItemSummoner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        spawnRate = Random.Range(4f, 10f);
+        spawnRate = Random.Range(4f, 7f);
         timeSinceLastSpawn += Time.deltaTime;
         if (timeSinceLastSpawn >= spawnRate)
         {
