@@ -14,10 +14,4 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Gameplay2.unity
     guid: bd2dea567bb355946ab9b88f0ddffc48
-  - enabled: 0
-    path: Assets/Scenes/Gameplay4.unity
-    guid: a3f93d5ec7c96344ba0499652af7907f
-  - enabled: 0
-    path: Assets/Scenes/Descarte.unity
-    guid: 23f2de1372515c24db64dbfe4129e943
   m_configObjects: {}
